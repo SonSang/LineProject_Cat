@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
-
+public class PlayerController : MonoBehaviour
+{
     // Speed
     public int moveSpeed;
     private float moveVelocity;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
     private Animator anim;
     
-    
+	public GameObject MobileControl;
 
     void Awake()
     {
@@ -33,24 +33,26 @@ public class PlayerController : MonoBehaviour {
         anim = GetComponent<Animator>();
     }
 	
-	void Update () {
+	void Update ()
+	{
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+		MobileControl.transform.position = new Vector3 (transform.position.x, transform.position.y, MobileControl.transform.position.z);
 
         moveVelocity = 0;
 
-        if(Input.GetKey(KeyCode.RightArrow))
+		if(PlayerPrefs.GetString("HorizontalDirection") == "Right")
         {
             moveVelocity = moveSpeed;
         }
 
-        if(Input.GetKey(KeyCode.LeftArrow))
+		if(PlayerPrefs.GetString("HorizontalDirection") == "Left")
         {
             moveVelocity = (-1) * moveSpeed;
         }
 
         rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+		if (PlayerPrefs.GetString("Jump") == "Jump" && isGrounded)
         {
             anim.SetBool("Jumping", true);
             jump = true;
