@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
 
         moveVelocity = 0;
 
-        /*
 		if(PlayerPrefs.GetString("HorizontalDirection") == "Right")
         {
             moveVelocity = moveSpeed;
@@ -54,24 +53,6 @@ public class PlayerController : MonoBehaviour
         rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
 
 		if (PlayerPrefs.GetString("Jump") == "Jump" && isGrounded)
-        {
-            anim.SetBool("Jumping", true);
-            jump = true;
-        } */
-
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            moveVelocity = moveSpeed;
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            moveVelocity = (-1) * moveSpeed;
-        }
-
-        rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             anim.SetBool("Jumping", true);
             jump = true;

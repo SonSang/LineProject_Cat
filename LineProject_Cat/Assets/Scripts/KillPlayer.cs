@@ -3,6 +3,8 @@ using System.Collections;
 
 public class KillPlayer : MonoBehaviour {
 
+    public float corpseOffset;
+
     private LevelManager levelManager;
 
     void Awake()
@@ -12,6 +14,6 @@ public class KillPlayer : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        levelManager.respawnPlayer();
+        levelManager.respawnPlayer(this);
     }
 }

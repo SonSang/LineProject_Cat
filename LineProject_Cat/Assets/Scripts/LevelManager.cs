@@ -16,7 +16,9 @@ public class LevelManager : MonoBehaviour {
     public GameObject respawnParticle;
 
     private PlayerController player;
-    private CorpseManager deathManager;
+    private DeathManager deathManager;
+
+    private KillPlayer kp;
 
     public Text lifeText;
 
@@ -24,7 +26,7 @@ public class LevelManager : MonoBehaviour {
 	void Start () {
         isDead = false;
         player = FindObjectOfType<PlayerController>();
-        deathManager = FindObjectOfType<CorpseManager>();
+        deathManager = FindObjectOfType<DeathManager>();
         lifeText.text = "X " + player.life;
     }
 	
@@ -33,8 +35,9 @@ public class LevelManager : MonoBehaviour {
 	    
 	}
 
-    public void respawnPlayer()
+    public void respawnPlayer(KillPlayer kp)
     {
+        this.kp = kp;
         StartCoroutine("respawnPlayerCo");
     }
 
@@ -56,7 +59,7 @@ public class LevelManager : MonoBehaviour {
             player.GetComponent<Renderer>().enabled = false;
             player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             player.GetComponent<Rigidbody2D>().isKinematic = true;
-            deathManager.makeCorpse(player);
+            deathManager.makeCorpse(player, kp);
 
             isDead = true;
 
