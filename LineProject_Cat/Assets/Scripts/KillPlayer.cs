@@ -3,17 +3,13 @@ using System.Collections;
 
 public class KillPlayer : MonoBehaviour {
 
-    public float corpseOffset;
-
-    private LevelManager levelManager;
-
-    void Awake()
-    {
-        levelManager = FindObjectOfType<LevelManager>();
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        levelManager.respawnPlayer(this);
-    }
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 }

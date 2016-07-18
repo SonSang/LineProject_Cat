@@ -13,8 +13,13 @@ public class DeathManager : MonoBehaviour {
 
         c.transform.localScale = player.transform.localScale;
 
-        c.transform.parent = kp.transform;
-        Vector3 corpseLP = c.transform.localPosition;
-        c.transform.localPosition = new Vector3(corpseLP.x, kp.corpseOffset, corpseLP.z);
+        // if player was killed by obstacle
+        if (kp as ObstacleManager != null)
+        {
+            ObstacleManager om = kp as ObstacleManager;
+            c.transform.parent = om.transform;
+            Vector3 corpseLP = c.transform.localPosition;
+            c.transform.localPosition = new Vector3(corpseLP.x, om.corpseOffset, corpseLP.z);
+        }
     }
 }

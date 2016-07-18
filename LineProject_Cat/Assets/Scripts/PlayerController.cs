@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         moveVelocity = 0;
 
-		if(PlayerPrefs.GetString("HorizontalDirection") == "Right")
+        if(PlayerPrefs.GetString("HorizontalDirection") == "Right")
         {
             moveVelocity = moveSpeed;
         }
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Jumping", true);
             jump = true;
         }
+
     }
 
     void FixedUpdate()
