@@ -8,8 +8,9 @@ public class EnemyController : KillPlayer {
 
     public int moveRange;
 
-    public bool isScouting;
-    public int scoutRange;
+    public bool isAttacking;
+    public int attackRange;
+    public int attackOffset;
 
     public Transform groundCheck;
     public Transform wallCheck;
@@ -22,7 +23,6 @@ public class EnemyController : KillPlayer {
     private Rigidbody2D rb2d;
     private Animator anim;
     private PlayerController player;
-    private LevelManager levelManager;
 
 	// Use this for initialization
 	void Start () {
@@ -33,36 +33,62 @@ public class EnemyController : KillPlayer {
         moveSpeed = (float)(FindObjectOfType<PlayerController>().moveSpeed * 0.8);
 	}
 
-    bool CheckPlayer()
+    float CheckPlayer()
     {
-        if (Mathf.Abs(transform.position.x - player.transform.position.x) < scoutRange)
-            return true;
-
-        return false;
+        return (transform.position.x - player.transform.position.x);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (CheckPlayer())
-            isScouting = true;
-        else
-            isScouting = false;
+
+    void Attack()
+    {
+        anim.SetBool("Attack", true);
+
+        if (CheckPlayer() < -attackOffset) // player is on the right side
+        {
+            if (!isRight)
+                Flip();
+            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+        }
+        else if (CheckPlayer() > attackOffset) // player is on the left side
+        {
+            if (isRight)
+                Flip();
+            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+        }
+
+        if (!isGroundedAhead || isWallAhead)
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+    }
+
+    void Patrol()
+    {
+        anim.SetBool("Attack", false);
 
         if (isRight)
             rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
         else
             rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
 
-        isGroundedAhead = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-        isWallAhead = Physics2D.OverlapCircle(wallCheck.position, groundCheckRadius, whatIsGround);
-
         if (!isGroundedAhead || isWallAhead)
             Flip();
     }
+	
+	// Update is called once per frame
+	void Update () {
 
-    void FixedUpdate()
-    {
-        
+        isGroundedAhead = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        isWallAhead = Physics2D.OverlapCircle(wallCheck.position, groundCheckRadius, whatIsGround);
+
+        if (Mathf.Abs(CheckPlayer()) < attackRange)
+            isAttacking = true;
+        else
+            isAttacking = false;
+
+        // attack mode
+        if(isAttacking)
+            Attack();
+        // patrol mode
+        else
+            Patrol();
     }
 
     void Flip()
@@ -71,13 +97,5 @@ public class EnemyController : KillPlayer {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "Player")
-        {
-            levelManager.respawnPlayer(this);
-        }
     }
 }
