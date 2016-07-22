@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour {
 
     public Text lifeText;
 
+    public bool IsPlayerDead { get { return isDead; } }
+
 	// Use this for initialization
 	void Start () {
         isDead = false;

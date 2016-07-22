@@ -3,11 +3,10 @@ using System.Collections;
 
 public class EnemyController : KillPlayer {
 
-    public float moveSpeed;
+    private float moveSpeed;
     public bool isRight;
 
-    public int moveRange;
-
+    public float moveRange;
     public bool isAttacking;
     public int attackRange;
     public int attackOffset;
@@ -24,6 +23,13 @@ public class EnemyController : KillPlayer {
     private Animator anim;
     private PlayerController player;
 
+    private bool enteringPatrol;
+    private bool atPatrolEdge;
+    private float patrolPoint;
+    private float patrolLeftPoint;
+    private float patrolRightPoint;
+    private float turningPoint;
+
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
@@ -31,6 +37,8 @@ public class EnemyController : KillPlayer {
         player = FindObjectOfType<PlayerController>();
         levelManager = FindObjectOfType<LevelManager>();
         moveSpeed = (float)(FindObjectOfType<PlayerController>().moveSpeed * 0.8);
+        enteringPatrol = true;
+        atPatrolEdge = false;
 	}
 
     float CheckPlayer()
@@ -68,7 +76,14 @@ public class EnemyController : KillPlayer {
         else
             rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
 
-        if (!isGroundedAhead || isWallAhead)
+        if (transform.position.x <= patrolLeftPoint && !isRight)
+            atPatrolEdge = true;
+        else if (transform.position.x >= patrolRightPoint && isRight)
+            atPatrolEdge = true;
+        else
+            atPatrolEdge = false;
+
+        if (!isGroundedAhead || isWallAhead || atPatrolEdge)
             Flip();
     }
 	
@@ -78,17 +93,41 @@ public class EnemyController : KillPlayer {
         isGroundedAhead = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         isWallAhead = Physics2D.OverlapCircle(wallCheck.position, groundCheckRadius, whatIsGround);
 
-        if (Mathf.Abs(CheckPlayer()) < attackRange)
-            isAttacking = true;
+        if (!levelManager.IsPlayerDead)
+        {
+            if (Mathf.Abs(CheckPlayer()) < attackRange)
+                isAttacking = true;
+            else
+                isAttacking = false;
+        }
         else
             isAttacking = false;
+        
 
         // attack mode
         if(isAttacking)
+        {
+            enteringPatrol = true;
             Attack();
+        }            
         // patrol mode
         else
+        {
+            if(enteringPatrol)
+            {
+                setPatrolPoints();
+                enteringPatrol = false;
+            }
             Patrol();
+        }
+            
+    }
+
+    void setPatrolPoints()
+    {
+        patrolPoint = transform.position.x;
+        patrolLeftPoint = transform.position.x - (moveRange * (float)0.5);
+        patrolRightPoint = transform.position.x + (moveRange * (float)0.5);
     }
 
     void Flip()
@@ -98,4 +137,5 @@ public class EnemyController : KillPlayer {
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
 }
