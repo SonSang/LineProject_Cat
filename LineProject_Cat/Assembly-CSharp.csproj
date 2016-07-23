@@ -46,12 +46,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CorpseManager.cs" />
+     <Compile Include="Assets\Scripts\DeathManager.cs" />
      <Compile Include="Assets\Scripts\DestroyFinishedParticles.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\ExitManager.cs" />
      <Compile Include="Assets\Scripts\KillPlayer.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\LevelSelectManager.cs" />
      <Compile Include="Assets\Scripts\Mobile\MobileControlManager.cs" />
+     <Compile Include="Assets\Scripts\ObstacleManager.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\StageButtonManager.cs" />
      <Compile Include="Assets\Scripts\TitleMenuManager.cs" />
@@ -66,8 +69,7 @@
      <None Include="Assets\Tiled2Unity\Shaders\shaTiledMap.shader" />
      <None Include="Assets\Tiled2Unity\Tiled2Unity.export.txt" />
      <None Include="Assets\Tiled2Unity\Shaders\shaDepth.shader" />
-     <None Include="Assets\Tiled2Unity\Imported\level0.tiled2unity.xml" />
-     <None Include="Assets\Tiled2Unity\Imported\level1.tiled2unity.xml" />
+     <None Include="Assets\Tiled2Unity\Imported\Map1_1_1.tiled2unity.xml" />
      <None Include="Assets\Tiled2Unity\Materials\_ReadMe.txt" />
      <None Include="Assets\Tiled2Unity\Textures\_ReadMe.txt" />
      <None Include="Assets\Tiled2Unity\Shaders\shaColorKey.shader" />
