@@ -22,6 +22,11 @@
  </tileset>
  <tileset firstgid="6" name="normal 3 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
   <image source="../../Image/Tile/normal 3 soil.png" width="80" height="80"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="1" x="-2" y="0" width="81" height="79"/>
+   </objectgroup>
+  </tile>
  </tileset>
  <tileset firstgid="7" name="normal 4 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
   <image source="../../Image/Tile/normal 4 platform.png" width="80" height="80"/>
