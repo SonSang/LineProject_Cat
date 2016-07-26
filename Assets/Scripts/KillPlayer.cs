@@ -7,7 +7,7 @@ public class KillPlayer : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && other.name != "BabyCat")
+        if (other.tag == "Player")
             levelManager.respawnPlayer(this);
     }
 }
