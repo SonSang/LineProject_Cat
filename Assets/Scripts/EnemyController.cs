@@ -95,7 +95,7 @@ public class EnemyController : KillPlayer {
 
         if (!levelManager.IsPlayerDead)
         {
-            if (Mathf.Abs(CheckPlayer()) < attackRange && player.tag != "BabyCat")
+            if (Mathf.Abs(CheckPlayer()) < attackRange)
                 isAttacking = true;
             else
                 isAttacking = false;
@@ -105,7 +105,7 @@ public class EnemyController : KillPlayer {
         
 
         // attack mode
-        if(isAttacking)
+        if(isAttacking )
         {
             enteringPatrol = true;
             Attack();
