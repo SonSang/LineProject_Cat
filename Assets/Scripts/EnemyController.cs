@@ -95,7 +95,7 @@ public class EnemyController : KillPlayer {
 
         if (!levelManager.IsPlayerDead)
         {
-            if (Mathf.Abs(CheckPlayer()) < attackRange && player.tag != "baby")
+            if (Mathf.Abs(CheckPlayer()) < attackRange && player.tag != "BabyCat")
                 isAttacking = true;
             else
                 isAttacking = false;
