@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="400" height="30" tilewidth="80" tileheight="80" nextobjectid="1">
+ <tileset firstgid="1" name="normal 3 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 3 platform.png" width="80" height="80"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="-1" width="79" height="79"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="normal 1 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 1 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="3" name="normal 1 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 1 soil.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="4" name="normal 2 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 2 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="5" name="normal 2 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 2 soil.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="6" name="normal 3 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 3 soil.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="7" name="normal 4 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 4 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="8" name="thorn1" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/thorn1.png" width="80" height="80"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="-1" width="78" height="80"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="9" name="thorn2" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/thorn2.png" width="80" height="91"/>
+ </tileset>
+ <tileset firstgid="10" name="thorn3" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/thorn3.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="11" name="water 1 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 1 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="12" name="water 1 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 1 soil.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="13" name="water 2 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 2 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="14" name="water 2 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 2 soil.png" width="80" height="80"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="400" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt3EEKgCAQQNHcRPc/cZuCGBRrWmj0HsxKXX8SaVkAAAAAAAAAAAAAgNmtyQHg3zI90A8A9AOAjF4/yjHxDAD/1utHbV0/AIh9KGH0A4Aa3x8AZGT6AQBnH+K9VVwHgCf0A4DaW9yebD+2ywAwt3gH1XpL1dv39sydAWAe2X9ZjRgA5jG6CfoB8E2jm6AfAN80ugn6AQAAAAAAAAAAAAAA0LYDrF8FmA==
+  </data>
+ </layer>
+</map>
