@@ -24,8 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb2d;
     private Animator anim;
-    
-	public GameObject MobileControl;
+    private MobileControlManager MobileControl;
 
     void Awake()
     {
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-		MobileControl.transform.position = new Vector3 (transform.position.x, transform.position.y, MobileControl.transform.position.z);
+//		MobileControl.transform.position = new Vector3 (transform.position.x, transform.position.y, MobileControl.transform.position.z);
 
         moveVelocity = 0;
 
