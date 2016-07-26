@@ -7,6 +7,7 @@ public class LevelSelectManager : MonoBehaviour {
 
     public Button[] stages;
     public string levelSelectMenu;
+    public string mainMenu;
 
     private Button selectedStage;
 
@@ -17,6 +18,11 @@ public class LevelSelectManager : MonoBehaviour {
     void Start()
     {
         isStageSelected = false;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(mainMenu);
     }
 
     public void LoadSelectedStage(int stage)
