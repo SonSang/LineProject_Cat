@@ -50,6 +50,6 @@ public class LevelSelectManager : MonoBehaviour {
     // subStageCode = "mainstagenum"+"substagenum"
     public void LoadSelectedSubStage(string subStageCode)
     {
-        SceneManager.LoadScene("Level" + subStageCode);
+        SceneManager.LoadScene("Stage" + subStageCode);
     }
 }
