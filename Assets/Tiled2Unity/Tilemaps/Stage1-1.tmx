@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="30" tilewidth="80" tileheight="80" nextobjectid="1">
+ <tileset firstgid="1" name="normal 1 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 1 soil.png" width="80" height="80"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="1" x="-1" y="0" width="79" height="80"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="normal 1 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 1 platform.png" width="80" height="80"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="1" x="-1" y="0" width="81" height="80"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="water 1 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 1 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="4" name="water 1 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 1 soil.png" width="80" height="80"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="300" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt2tuKwyAUBdBM//+jh4FCSqiMxsuJuhacl1BIvGRrpMcBAAAAAAAAAAAAwMp+3gXwdPIKmIW8guN4FRRx5BWc70FOEccYgLyahTEAeTULYwBleRV1vuV8TV7Bn5K8GrX/uuaP/d8ebYy0y7o3u5Z5dXe/k8qn0mdc2Q5tjLTLPPqm9nul5D8GtdUyr3Lz4798upJXe7Qx0i7z6Jva96lnhoysVF736o+VpfrU2d59qXU79ZtV5O5ZckXnTK+6S161Wzs45cyjVebXnW+qXNG5Iq+ep9UYyK3T6nlVe+4zM3kVq/XaMfKMtKY+jTq7TfV76ll6PmOP9u3wPsmrZ2udZ0+piDam7ll6ffaCXqLn9ujsiLhn6fXZC3qJntujsyPinqXXZy8AAACAEr838QVq
+  </data>
+ </layer>
+</map>
