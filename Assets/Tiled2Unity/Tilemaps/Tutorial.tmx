@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="400" height="30" tilewidth="80" tileheight="80" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="30" tilewidth="80" tileheight="80" nextobjectid="1">
  <tileset firstgid="1" name="normal 3 platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
   <image source="../../Image/Tile/normal 3 platform.png" width="80" height="80"/>
   <tile id="0">
@@ -57,9 +57,9 @@
  <tileset firstgid="14" name="water 2 soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
   <image source="../../Image/Tile/water 2 soil.png" width="80" height="80"/>
  </tileset>
- <layer name="Tile Layer 1" width="400" height="30">
+ <layer name="Tile Layer 1" width="100" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt3EEKgCAQQNHcRPc/cZuCGBRrWmj0HsxKXX8SaVkAAAAAAAAAAAAAgNmtyQHg3zI90A8A9AOAjF4/yjHxDAD/1utHbV0/AIh9KGH0A4Aa3x8AZGT6AQBnH+K9VVwHgCf0A4DaW9yebD+2ywAwt3gH1XpL1dv39sydAWAe2X9ZjRgA5jG6CfoB8E2jm6AfAN80ugn6AQAAAAAAAAAAAAAA0LYDrF8FmA==
+   eJzt2MsKgCAQheHc+P6P3EYoDmNqKY72f3BWNVCd7scBAABWF1MwV5Rgrq996HxtYOvVR+sMbPThy+g+QorOwDa6D2s5feT17iNI6KMN14cvM/pAXq8+9D6ly1Fn9HcafeTpOXx/3tYcN+vdtYQ+LqVjb8XqTOef1ukxU5PSvnrM239LK0TN3p6/hz58hT58Zfc+AAAAgJ2dj6MMTQ==
   </data>
  </layer>
 </map>
