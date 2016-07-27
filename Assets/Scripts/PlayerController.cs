@@ -49,7 +49,8 @@ public class PlayerController : MonoBehaviour
             moveVelocity = (-1) * moveSpeed;
         }
 
-        rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
+        if(gameObject.GetComponent<RocketJump>().IsRocketJumping == false)
+            rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
 
 		if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded)
         {
