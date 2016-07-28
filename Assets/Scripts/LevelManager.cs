@@ -24,12 +24,15 @@ public class LevelManager : MonoBehaviour {
 
     public bool IsPlayerDead { get { return isDead; } }
 
+    private Vector3 formerRebirthPos;
+
 	// Use this for initialization
 	void Start () {
         isDead = false;
         player = FindObjectOfType<PlayerController>();
         deathManager = FindObjectOfType<DeathManager>();
         lifeText.text = "X " + player.life;
+        formerRebirthPos = player.transform.position;
     }
 	
 	// Update is called once per frame
@@ -40,6 +43,7 @@ public class LevelManager : MonoBehaviour {
     public void respawnPlayer(KillPlayer kp)
     {
         this.kp = kp;
+
         StartCoroutine("respawnPlayerCo");
     }
 
@@ -77,8 +81,14 @@ public class LevelManager : MonoBehaviour {
     {
         if(isDead)
         {
-            Vector3 originalPosition = player.transform.position;
-            player.transform.position = originalPosition + new Vector3(0, respawnHeight, 0);
+            if(kp as DeathHorizonManager != null)
+                player.transform.position = formerRebirthPos;
+            else
+            {
+                Vector3 originalPosition = player.transform.position;
+                formerRebirthPos = originalPosition + new Vector3(0, respawnHeight, 0);
+                player.transform.position = formerRebirthPos;
+            }
 
             player.enabled = true;
             player.GetComponent<Renderer>().enabled = true;

@@ -5,8 +5,9 @@ public class ObstacleManager : KillPlayer {
 
     public float corpseOffset;
 
-    void Awake()
+    void Start()
     {
+        MakeCorpse = true;
         levelManager = FindObjectOfType<LevelManager>();
     }
 }

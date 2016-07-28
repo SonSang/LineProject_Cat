@@ -9,6 +9,9 @@ public class DeathManager : MonoBehaviour {
 	public void makeCorpse(PlayerController player, KillPlayer kp)
     {
         corpse = player.corpse;
+        if (!kp.MakeCorpse)
+            return;
+
         GameObject c = Instantiate(corpse, player.transform.position, player.transform.rotation) as GameObject;
 
         c.transform.localScale = player.transform.localScale;
