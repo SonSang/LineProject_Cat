@@ -7,7 +7,6 @@ public class ObstacleManager : KillPlayer {
 
     void Start()
     {
-        MakeCorpse = true;
         levelManager = FindObjectOfType<LevelManager>();
     }
 }

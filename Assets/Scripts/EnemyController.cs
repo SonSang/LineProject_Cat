@@ -39,7 +39,6 @@ public class EnemyController : KillPlayer {
         moveSpeed = (float)(FindObjectOfType<PlayerController>().moveSpeed * 0.8);
         enteringPatrol = true;
         atPatrolEdge = false;
-        MakeCorpse = true;
 	}
 
     float CheckPlayer()

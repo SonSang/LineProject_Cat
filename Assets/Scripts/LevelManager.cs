@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour {
 
     private PlayerController player;
     private DeathManager deathManager;
+    public CatChangeManager catChanger;
+    private PauseManager pause;
 
     private KillPlayer kp;
 
@@ -24,20 +26,22 @@ public class LevelManager : MonoBehaviour {
 
     public bool IsPlayerDead { get { return isDead; } }
 
-    private Vector3 formerRebirthPos;
+    private float lastYPos;
 
 	// Use this for initialization
 	void Start () {
         isDead = false;
         player = FindObjectOfType<PlayerController>();
         deathManager = FindObjectOfType<DeathManager>();
+        //catChanger = FindObjectOfType<CatChangeManager>();
+        pause = FindObjectOfType<PauseManager>();
         lifeText.text = "X " + player.life;
-        formerRebirthPos = player.transform.position;
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    
+        if (player.isGrounded)
+            lastYPos = player.transform.position.y;
 	}
 
     public void respawnPlayer(KillPlayer kp)
@@ -51,6 +55,8 @@ public class LevelManager : MonoBehaviour {
     {
         kill();
         yield return new WaitForSeconds(respawnDelay);
+        //Select();
+        //yield return new WaitForSeconds(respawnDelay);
         respawn();
     }
 
@@ -65,7 +71,7 @@ public class LevelManager : MonoBehaviour {
             player.GetComponent<Renderer>().enabled = false;
             player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             player.GetComponent<Rigidbody2D>().isKinematic = true;
-            deathManager.makeCorpse(player, kp);
+            deathManager.makeCorpse(player, kp, lastYPos);
 
             isDead = true;
 
@@ -73,6 +79,7 @@ public class LevelManager : MonoBehaviour {
                 player.life -= 1;
 
             lifeText.text = "X " + player.life;
+
         }
     }
 
@@ -81,13 +88,14 @@ public class LevelManager : MonoBehaviour {
     {
         if(isDead)
         {
+            player = FindObjectOfType<PlayerController>();
+
             if(kp as DeathHorizonManager != null)
-                player.transform.position = formerRebirthPos;
+                player.transform.position = new Vector3(player.transform.position.x, lastYPos, player.transform.position.z);
             else
             {
                 Vector3 originalPosition = player.transform.position;
-                formerRebirthPos = originalPosition + new Vector3(0, respawnHeight, 0);
-                player.transform.position = formerRebirthPos;
+                player.transform.position = originalPosition + new Vector3(0, respawnHeight, 0);
             }
 
             player.enabled = true;
@@ -99,5 +107,9 @@ public class LevelManager : MonoBehaviour {
         }
     }
     
-
+    void Select()
+    {
+        pause.Pause();
+        catChanger.gameObject.SetActive(true);
+    }
 }
