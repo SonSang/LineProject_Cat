@@ -1,42 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CatChangeManager : MonoBehaviour {
+public class CatChangeManager : MonoBehaviour, FindPlayerInterface {
 
-    private PauseManager pause;
+    private LevelManager levelManager;
     public GameObject[] cats;
     private PlayerController player;
-    private float originalTimeScale;
+    private FindPlayerManager findPlayer;
 
     public void SelectCat(string catName)
     {
-        //Destroy(player.gameObject);
         if (catName == "BabyCat")
-            Instantiate(cats[0], player.transform.position, player.transform.rotation);
+            Instantiate(cats[0], player.transform.position, player.transform.rotation).name = "BabyCat";
 
         if (catName == "JustCat")
-            Instantiate(cats[1], player.transform.position, player.transform.rotation);
+            Instantiate(cats[1], player.transform.position, player.transform.rotation).name = "JustCat";
 
         if (catName == "RoCat")
-            Instantiate(cats[2], player.transform.position, player.transform.rotation);
+            Instantiate(cats[2], player.transform.position, player.transform.rotation).name = "RoCat";
 
         Destroy(player.gameObject);
-        player = FindObjectOfType<PlayerController>();
-        pause.Resume();
+        findPlayer.FindPlayer();
+        levelManager.respawn();
         this.gameObject.SetActive(false);
     }
 
 	// Use this for initialization
 	void Start () {
+        levelManager = FindObjectOfType<LevelManager>();
+        findPlayer = FindObjectOfType<FindPlayerManager>();
         player = FindObjectOfType<PlayerController>();
-        pause = FindObjectOfType<PauseManager>();
-        originalTimeScale = Time.timeScale;
-        Debug.Log(Time.timeScale);
         this.gameObject.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public void FindPlayer()
+    {
+        player = FindObjectOfType<PlayerController>();
+    }
 }

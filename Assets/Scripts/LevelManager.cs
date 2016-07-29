@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Threading;
 
-public class LevelManager : MonoBehaviour {
+public class LevelManager : MonoBehaviour, FindPlayerInterface {
    
     // Player is dead?
     private bool isDead;
@@ -28,6 +29,8 @@ public class LevelManager : MonoBehaviour {
 
     private float lastYPos;
 
+    private int formerLife;
+
 	// Use this for initialization
 	void Start () {
         isDead = false;
@@ -40,24 +43,24 @@ public class LevelManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (player.isGrounded)
-            lastYPos = player.transform.position.y;
+        if(!isDead)
+        {
+            if (player.isGrounded)
+                lastYPos = player.transform.position.y;
+        }
 	}
 
     public void respawnPlayer(KillPlayer kp)
     {
         this.kp = kp;
-
         StartCoroutine("respawnPlayerCo");
     }
 
     public IEnumerator respawnPlayerCo()
     {
         kill();
-        yield return new WaitForSeconds(respawnDelay);
-        //Select();
-        //yield return new WaitForSeconds(respawnDelay);
-        respawn();
+        yield return new WaitForSeconds(2);
+        Select(); 
     }
 
     // Kill Player
@@ -78,38 +81,44 @@ public class LevelManager : MonoBehaviour {
             if(player.life > 0)
                 player.life -= 1;
 
+            formerLife = player.life;
             lifeText.text = "X " + player.life;
 
         }
     }
 
     // Respawn Player
-    void respawn()
+    public void respawn()
     {
         if(isDead)
         {
-            player = FindObjectOfType<PlayerController>();
+            player.life = formerLife;
 
             if(kp as DeathHorizonManager != null)
-                player.transform.position = new Vector3(player.transform.position.x, lastYPos, player.transform.position.z);
+                player.transform.position = new Vector3(player.transform.position.x, lastYPos, 
+                    player.transform.position.z);
             else
             {
                 Vector3 originalPosition = player.transform.position;
                 player.transform.position = originalPosition + new Vector3(0, respawnHeight, 0);
             }
 
-            player.enabled = true;
-            player.GetComponent<Renderer>().enabled = true;
-            player.GetComponent<Rigidbody2D>().isKinematic = false;
+            //player.enabled = true;
+            //player.GetComponent<Renderer>().enabled = true;
+            //player.GetComponent<Rigidbody2D>().isKinematic = false;
 
             Instantiate(respawnParticle, player.transform.position, player.transform.rotation);
             isDead = false;
         }
     }
-    
+
     void Select()
     {
-        pause.Pause();
         catChanger.gameObject.SetActive(true);
+    }
+
+    public void FindPlayer()
+    {
+        player = FindObjectOfType<PlayerController>();
     }
 }

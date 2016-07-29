@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyController : KillPlayer {
+public class EnemyController : KillPlayer, FindPlayerInterface {
 
     private float moveSpeed;
     public bool isRight;
@@ -40,6 +40,11 @@ public class EnemyController : KillPlayer {
         enteringPatrol = true;
         atPatrolEdge = false;
 	}
+
+    public void FindPlayer()
+    {
+        player = FindObjectOfType<PlayerController>();
+    }
 
     float CheckPlayer()
     {
