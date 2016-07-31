@@ -4,12 +4,13 @@ using System.Collections;
 public class FindPlayerManager : MonoBehaviour, FindPlayerInterface {
 
     private CatChangeManager catChange;
-    public EnemyController[] enemy;
+    private EnemyController[] enemy;
     private LevelManager level;
 
     void Start()
     {
         catChange = FindObjectOfType<CatChangeManager>();
+        enemy = FindObjectsOfType<EnemyController>();
         level = FindObjectOfType<LevelManager>();
     }
 
