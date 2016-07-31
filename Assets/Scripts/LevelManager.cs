@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     private DeathManager deathManager;
     public CatChangeManager catChanger;
     private PauseManager pause;
+    public GameOverManager gameOver;
 
     private KillPlayer kp;
 
@@ -52,8 +53,16 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     public void respawnPlayer(KillPlayer kp)
     {
-        this.kp = kp;
-        StartCoroutine("respawnPlayerCo");
+        if (player.life > 1)
+        {
+            this.kp = kp;
+            StartCoroutine("respawnPlayerCo");
+        }
+        else
+        {
+            StartCoroutine("gameOverCo");
+        }
+        
     }
 
     public IEnumerator respawnPlayerCo()
@@ -61,6 +70,13 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         kill();
         yield return new WaitForSeconds(2);
         Select(); 
+    }
+
+    public IEnumerator gameOverCo()
+    {
+        kill();
+        yield return new WaitForSeconds(2);
+        gameOver.gameObject.SetActive(true);
     }
 
     // Kill Player
@@ -78,9 +94,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
             isDead = true;
 
-            if(player.life > 0)
-                player.life -= 1;
-
+            player.life -= 1;
             formerLife = player.life;
             lifeText.text = "X " + player.life;
 
