@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor.SceneManagement;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour {
 
@@ -11,6 +10,6 @@ public class GameOverManager : MonoBehaviour {
 
 	public void LoadCurrentScene()
     {
-        EditorSceneManager.LoadScene(EditorSceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
