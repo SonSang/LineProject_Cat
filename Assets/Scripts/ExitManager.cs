@@ -4,7 +4,6 @@ using System.Collections;
 
 public class ExitManager : MonoBehaviour {
 
-    public string levelSelectMenu;
     public string nextLevel;
     private bool isOnExit;
 
@@ -19,7 +18,7 @@ public class ExitManager : MonoBehaviour {
         {
             PlayerPrefs.SetInt(nextLevel + "Unlocked", 1);
             if (isOnExit)
-                SceneManager.LoadScene(levelSelectMenu);
+                SceneManager.LoadScene(nextLevel);
         }
 	}
 
