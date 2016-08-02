@@ -18,7 +18,7 @@ public class RocketJump : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && IsRocketJumping == false)
+        if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true") && IsRocketJumping == false)
         {
             IsRocketJumping = true;
             rb2d.velocity = new Vector2((float)RocketMoveSpeed, (float)RocketJumpSpeed);

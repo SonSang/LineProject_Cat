@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     private PauseManager pause;
     private BackGroundController background;
     public GameOverManager gameOver;
+    public PauseManager pauseScreen;
 
     private KillPlayer kp;
 
@@ -31,7 +32,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     private float lastYPos;
     private float lastCamYPos;
-
+    
     private int formerLife;
 
 	// Use this for initialization
@@ -42,6 +43,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         //catChanger = FindObjectOfType<CatChangeManager>();
         pause = FindObjectOfType<PauseManager>();
         background = FindObjectOfType<BackGroundController>();
+        PlayerPrefs.SetString("Pause", "false");
         lifeText.text = "X " + player.life;
     }
 	
@@ -51,8 +53,13 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         {
             lastYPos = player.transform.position.y;
             lastCamYPos = background.GetBGPosY();
-        } 
-	}
+        }
+
+        if (PlayerPrefs.GetString("Pause") == "true")
+            Pause();
+        else
+            Resume();
+    }
 
     public void respawnPlayer(KillPlayer kp)
     {
@@ -141,5 +148,17 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     public void FindPlayer()
     {
         player = FindObjectOfType<PlayerController>();
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        pauseScreen.gameObject.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        pauseScreen.gameObject.SetActive(false);
     }
 }
