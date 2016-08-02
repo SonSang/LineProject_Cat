@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     private DeathManager deathManager;
     public CatChangeManager catChanger;
     private PauseManager pause;
+    private BackGroundController background;
     public GameOverManager gameOver;
 
     private KillPlayer kp;
@@ -29,6 +30,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     public bool IsPlayerDead { get { return isDead; } }
 
     private float lastYPos;
+    private float lastCamYPos;
 
     private int formerLife;
 
@@ -39,16 +41,17 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         deathManager = FindObjectOfType<DeathManager>();
         //catChanger = FindObjectOfType<CatChangeManager>();
         pause = FindObjectOfType<PauseManager>();
+        background = FindObjectOfType<BackGroundController>();
         lifeText.text = "X " + player.life;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(!isDead)
+        if(!isDead && player.isGrounded)
         {
-            if (player.isGrounded)
-                lastYPos = player.transform.position.y;
-        }
+            lastYPos = player.transform.position.y;
+            lastCamYPos = background.GetBGPosY();
+        } 
 	}
 
     public void respawnPlayer(KillPlayer kp)
@@ -108,9 +111,13 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         {
             player.life = formerLife;
 
+            background.MoveBackGroundInDeath(lastCamYPos);
+
             if(kp as DeathHorizonManager != null)
-                player.transform.position = new Vector3(player.transform.position.x, lastYPos, 
+            {
+                player.transform.position = new Vector3(player.transform.position.x, lastYPos,
                     player.transform.position.z);
+            }                
             else
             {
                 Vector3 originalPosition = player.transform.position;

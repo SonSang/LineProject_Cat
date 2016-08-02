@@ -7,10 +7,15 @@ public class BackGroundController : MonoBehaviour {
     private Transform[] bgTransform;
     private float[] parallaxScales;
     public float moveScale;
-    public float smoothing;
 
     private Transform cam;
     private Vector3 previousCamPos;
+    private Vector3 lastCamPosOnGround;
+
+    private float backgroundTargetPosX;
+    private float backgroundTargetPosY;
+
+    public float GetBGPosY() { return backgroundTargetPosY; }
 
     // Use this for initialization
     void Start()
@@ -43,13 +48,21 @@ public class BackGroundController : MonoBehaviour {
             float xparallax = (previousCamPos.x - cam.position.x) * parallaxScales[i];
             float yparallax = (previousCamPos.y - cam.position.y) * parallaxScales[i];
 
-            float backgroundTargetPosX = bgTransform[i].position.x + xparallax;
-            float backgroundTargetPosY = bgTransform[i].position.y + yparallax;
+            backgroundTargetPosX = bgTransform[i].position.x + xparallax;
+            backgroundTargetPosY = bgTransform[i].position.y + yparallax;
             Vector3 backgroundTargetPos = new Vector3(backgroundTargetPosX, backgroundTargetPosY, bgTransform[i].position.z);
 
-            bgTransform[i].position = Vector3.Lerp(bgTransform[i].position, backgroundTargetPos, smoothing * Time.deltaTime);
+            bgTransform[i].position = Vector3.Lerp(bgTransform[i].position, backgroundTargetPos, Time.deltaTime);
         }
 
         previousCamPos = cam.position;
+    }
+
+    public void MoveBackGroundInDeath(float lastCamYpos)
+    {
+        for(int i = 0; i < backgrounds.Length; i++)
+        {
+            bgTransform[i].position = new Vector3(bgTransform[i].position.x, lastCamYpos, bgTransform[i].position.z);
+        }
     }
 }
