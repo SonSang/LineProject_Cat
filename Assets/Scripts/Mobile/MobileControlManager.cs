@@ -9,6 +9,7 @@ public class MobileControlManager : MonoBehaviour
 		{
 			PlayerPrefs.SetString ("HorizontalDirection", "stop");
 			PlayerPrefs.SetString ("Jump", "stop");
+            PlayerPrefs.SetString ("Interact", "false");
 		}
 
 		else if (Input.touchCount > 0)
@@ -35,7 +36,11 @@ public class MobileControlManager : MonoBehaviour
 					{
 						PlayerPrefs.SetString ("Jump", "Jump");
 					}
-				}
+                    else if (GetComponent<Collider2D>().name == "Interact")
+                    {
+                        PlayerPrefs.SetString("Interact", "true");
+                    }
+                }
 			}
 
 
