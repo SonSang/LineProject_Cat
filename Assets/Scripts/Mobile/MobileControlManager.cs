@@ -10,7 +10,8 @@ public class MobileControlManager : MonoBehaviour
 			PlayerPrefs.SetString ("HorizontalDirection", "stop");
 			PlayerPrefs.SetString ("Jump", "stop");
             PlayerPrefs.SetString ("Interact", "false");
-		}
+            PlayerPrefs.SetString("Action", "false");
+        }
 
 		else if (Input.touchCount > 0)
 		{
@@ -40,9 +41,9 @@ public class MobileControlManager : MonoBehaviour
                     {
                         PlayerPrefs.SetString("Interact", "true");
                     }
-                    else if (GetComponent<Collider2D>().name == "Interact")
+                    else if (GetComponent<Collider2D>().name == "Action")
                     {
-                        PlayerPrefs.SetString("Interact", "true");
+                        PlayerPrefs.SetString("Action", "true");
                     }
                     else if (GetComponent<Collider2D>().name == "Pause")
                     {
@@ -73,12 +74,17 @@ public class MobileControlManager : MonoBehaviour
                         else
                             PlayerPrefs.SetString("Pause", "true");
                     }
+                    else if (GetComponent<Collider2D>().name == "Action")
+                    {
+                        PlayerPrefs.SetString("Action", "true");
+                    }
                 }
             }
 			else if (Input.GetTouch (1).phase == TouchPhase.Ended)
 			{
 				PlayerPrefs.SetString ("Jump", "stop");
-			}
+                PlayerPrefs.SetString("Action", "false");
+            }
 		}
 	}
 
