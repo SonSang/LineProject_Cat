@@ -60,9 +60,17 @@ public class MobileControlManager : MonoBehaviour
                     }
                 }
 			}
+            else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                if (firstTouch == "Left" || firstTouch == "Right")
+                    PlayerPrefs.SetString("HorizontalDirection", "stop");
+                else if (firstTouch == "Jump")
+                    PlayerPrefs.SetString("Jump", "stop");
+                else if (firstTouch == "Action")
+                    PlayerPrefs.SetString("Action", "false");
+            }
 
-
-			if (Input.GetTouch (1).phase == TouchPhase.Began)
+            if (Input.GetTouch (1).phase == TouchPhase.Began)
 			{
 				ray1 = Camera.main.ScreenToWorldPoint (Input.GetTouch (1).position);
 				Vector2 touchpos = new Vector2 (ray1.x, ray1.y);
