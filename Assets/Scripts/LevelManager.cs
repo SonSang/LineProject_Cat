@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         {
             player.life = formerLife;
 
-            background.MoveBackGroundInDeath(lastCamYPos);
+            //background.MoveBackGroundInDeath(lastCamYPos);
 
             if(kp as DeathHorizonManager != null)
             {

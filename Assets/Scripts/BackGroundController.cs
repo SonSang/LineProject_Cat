@@ -46,18 +46,21 @@ public class BackGroundController : MonoBehaviour {
         for (int i = 0; i < backgrounds.Length; i++)
         {
             float xparallax = (previousCamPos.x - cam.position.x) * parallaxScales[i];
-            float yparallax = (previousCamPos.y - cam.position.y) * parallaxScales[i];
+            //float yparallax = (previousCamPos.y - cam.position.y) * -Time.deltaTime;
 
             backgroundTargetPosX = bgTransform[i].position.x + xparallax;
-            backgroundTargetPosY = bgTransform[i].position.y + yparallax;
-            Vector3 backgroundTargetPos = new Vector3(backgroundTargetPosX, backgroundTargetPosY, bgTransform[i].position.z);
+            //backgroundTargetPosY = bgTransform[i].position.y + yparallax;
+            Vector3 backgroundTargetPos = new Vector3(backgroundTargetPosX, bgTransform[i].position.y, bgTransform[i].position.z);
 
             bgTransform[i].position = Vector3.Lerp(bgTransform[i].position, backgroundTargetPos, Time.deltaTime);
+
+            bgTransform[i].position = new Vector3(bgTransform[i].position.x, cam.position.y, bgTransform[i].position.z);
         }
 
         previousCamPos = cam.position;
     }
 
+    /*
     public void MoveBackGroundInDeath(float lastCamYpos)
     {
         for(int i = 0; i < backgrounds.Length; i++)
@@ -65,4 +68,5 @@ public class BackGroundController : MonoBehaviour {
             bgTransform[i].position = new Vector3(bgTransform[i].position.x, lastCamYpos, bgTransform[i].position.z);
         }
     }
+    */
 }
