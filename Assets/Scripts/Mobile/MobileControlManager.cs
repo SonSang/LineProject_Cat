@@ -3,6 +3,9 @@ using System.Collections;
 
 public class MobileControlManager : MonoBehaviour
 {
+    static string firstTouch;
+    static string secondTouch;
+
 	void Update()
 	{
 		if (Input.touchCount == 0)
@@ -11,6 +14,8 @@ public class MobileControlManager : MonoBehaviour
 			PlayerPrefs.SetString ("Jump", "stop");
             PlayerPrefs.SetString ("Interact", "false");
             PlayerPrefs.SetString("Action", "false");
+            firstTouch = "none";
+            secondTouch = "none";
         }
 
 		else if (Input.touchCount > 0)
@@ -25,6 +30,7 @@ public class MobileControlManager : MonoBehaviour
 
 				if (GetComponent<Collider2D> () == Physics2D.OverlapPoint (touchpos))
 				{
+                    firstTouch = GetComponent<Collider2D>().name;
 					if (GetComponent<Collider2D> ().name == "Left")
 					{
 						PlayerPrefs.SetString ("HorizontalDirection", "Left");
@@ -32,11 +38,11 @@ public class MobileControlManager : MonoBehaviour
 					else if (GetComponent<Collider2D> ().name == "Right")
 					{
 						PlayerPrefs.SetString ("HorizontalDirection", "Right");
-					}
-					else if (GetComponent<Collider2D> ().name == "Jump")
+                    }
+                    else if (GetComponent<Collider2D> ().name == "Jump")
 					{
 						PlayerPrefs.SetString ("Jump", "Jump");
-					}
+                    }
                     else if (GetComponent<Collider2D>().name == "Interact")
                     {
                         PlayerPrefs.SetString("Interact", "true");
@@ -63,7 +69,16 @@ public class MobileControlManager : MonoBehaviour
 
 				if (GetComponent<Collider2D> () == Physics2D.OverlapPoint (touchpos))
 				{
-					if (GetComponent<Collider2D> ().name == "Jump")
+                    secondTouch = GetComponent<Collider2D>().name;
+                    if (GetComponent<Collider2D>().name == "Left")
+                    {
+                        PlayerPrefs.SetString("HorizontalDirection", "Left");
+                    }
+                    else if (GetComponent<Collider2D>().name == "Right")
+                    {
+                        PlayerPrefs.SetString("HorizontalDirection", "Right");
+                    }
+                    else if (GetComponent<Collider2D> ().name == "Jump")
 					{
 						PlayerPrefs.SetString ("Jump", "Jump");
 					}
@@ -82,8 +97,12 @@ public class MobileControlManager : MonoBehaviour
             }
 			else if (Input.GetTouch (1).phase == TouchPhase.Ended)
 			{
-				PlayerPrefs.SetString ("Jump", "stop");
+                if (firstTouch == "Jump" || firstTouch == "Action")
+                    PlayerPrefs.SetString("HorizontalDirection", "stop");
+
+                PlayerPrefs.SetString ("Jump", "stop");
                 PlayerPrefs.SetString("Action", "false");
+                secondTouch = "none";
             }
 		}
 	}
