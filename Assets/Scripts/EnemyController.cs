@@ -39,7 +39,11 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         moveSpeed = (float)(FindObjectOfType<PlayerController>().moveSpeed * 0.8);
         enteringPatrol = true;
         atPatrolEdge = false;
-	}
+
+        patrolPoint = transform.position.x;
+        patrolLeftPoint = transform.position.x - (moveRange * (float)0.5);
+        patrolRightPoint = transform.position.x + (moveRange * (float)0.5);
+    }
 
     public void FindPlayer()
     {
@@ -49,6 +53,11 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     float CheckPlayer()
     {
         return (transform.position.x - player.transform.position.x);
+    }
+
+    float CheckPatrolPoint()
+    {
+        return (transform.position.x - patrolPoint);
     }
 
     void Attack()
@@ -120,19 +129,30 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         {
             if(enteringPatrol)
             {
-                setPatrolPoints();
-                enteringPatrol = false;
+                ReturnToPatrolPoint();
             }
             Patrol();
         }
-            
     }
 
-    void setPatrolPoints()
+    void ReturnToPatrolPoint()
     {
-        patrolPoint = transform.position.x;
-        patrolLeftPoint = transform.position.x - (moveRange * (float)0.5);
-        patrolRightPoint = transform.position.x + (moveRange * (float)0.5);
+        if (CheckPatrolPoint() > 0.5)
+        {
+            if (isRight)
+                Flip();
+            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+        }
+        else if (CheckPatrolPoint() < -0.5)
+        {
+            if (!isRight)
+                Flip();
+            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+        }
+        else
+        {
+            enteringPatrol = !enteringPatrol;
+        }
     }
 
     void Flip()
