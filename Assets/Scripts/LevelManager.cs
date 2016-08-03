@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     public void respawnPlayer(KillPlayer kp)
     {
-        if (player.life > 1)
+        if (player.life > 0)
         {
             this.kp = kp;
             StartCoroutine("respawnPlayerCo");
