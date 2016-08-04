@@ -26,10 +26,20 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     public GameObject MobileControl;
 
+    private AudioSource[] catSE;
+    private AudioSource catJump;
+
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        catSE = GetComponents<AudioSource>();
+        
+        for(int i = 0; i < catSE.Length; i++)
+        {
+            if (catSE[i].clip.name == "Cat_Jump")
+                catJump = catSE[i];
+        }
     }
 	
 	void Update ()
@@ -60,6 +70,7 @@ public class PlayerController : MonoBehaviour
 		if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded)
         {
             anim.SetBool("Jumping", true);
+            catJump.Play();
             jump = true;
         }
     }

@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     private BackGroundController background;
     public GameOverManager gameOver;
     public PauseManager pauseScreen;
+    private AudioSource catDie;
 
     private KillPlayer kp;
 
@@ -43,6 +44,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         //catChanger = FindObjectOfType<CatChangeManager>();
         pause = FindObjectOfType<PauseManager>();
         background = FindObjectOfType<BackGroundController>();
+        catDie = GetComponent<AudioSource>();
         PlayerPrefs.SetString("Pause", "false");
         lifeText.text = "X " + player.life;
     }
@@ -95,6 +97,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         if(!isDead)
         {
             Instantiate(deathParticle, player.transform.position, player.transform.rotation);
+            catDie.Play();
 
             player.enabled = false;
             player.GetComponent<Renderer>().enabled = false;
