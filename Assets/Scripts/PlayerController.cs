@@ -60,6 +60,15 @@ public class PlayerController : MonoBehaviour
         }
 
         rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
+
+        if(isGrounded && moveVelocity != 0)
+        {
+            anim.SetBool("Walking", true);
+        }
+        else
+        {
+            anim.SetBool("Walking", false);
+        }
         
         if(gameObject.GetComponent<RocketJump>() != null)
         {
@@ -67,7 +76,7 @@ public class PlayerController : MonoBehaviour
                 rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
         }
             
-		if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded)
+		if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded )
         {
             anim.SetBool("Jumping", true);
             catJump.Play();
@@ -82,16 +91,16 @@ public class PlayerController : MonoBehaviour
         else if (moveVelocity < 0 && isRight)
             Flip();
 
-        if (isGrounded)
-            anim.SetBool("Jumping", false);
-        else
-            anim.SetBool("Jumping", true);
+
+        if (isGrounded && !jump)
+            anim.SetBool("Jumping", false); 
 
         if (jump)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
             jump = false;
         }
+
     }
 
     void Flip()
