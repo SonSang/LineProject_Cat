@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     // Move State
     private bool isRight = true;
     private bool jump = false;
+    private bool readyToJump = true;
 
     // Ground Check
     public Transform groundCheck;
@@ -75,8 +76,8 @@ public class PlayerController : MonoBehaviour
             if (gameObject.GetComponent<RocketJump>().IsRocketJumping == false)
                 rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
         }
-            
-		if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded )
+
+        if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded)
         {
             anim.SetBool("Jumping", true);
             catJump.Play();
@@ -91,9 +92,14 @@ public class PlayerController : MonoBehaviour
         else if (moveVelocity < 0 && isRight)
             Flip();
 
-
-        if (isGrounded && !jump)
-            anim.SetBool("Jumping", false); 
+        if (isGrounded)
+        {
+            anim.SetBool("Jumping", false);
+        }
+        else
+        {
+            anim.SetBool("Jumping", true);
+        }
 
         if (jump)
         {
