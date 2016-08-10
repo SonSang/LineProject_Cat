@@ -18,16 +18,18 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     private PlayerController player;
     private DeathManager deathManager;
-    public CatChangeManager catChanger;
     private PauseManager pause;
     private BackGroundController background;
-    public GameOverManager gameOver;
-    public PauseManager pauseScreen;
+
+    // UIs
+    private CatChangeManager catChanger;
+    private GameOverManager gameOver;
+    private PauseManager pauseScreen;
+    private Text lifeText;
+
     private AudioSource catDie;
 
     private KillPlayer kp;
-
-    public Text lifeText;
 
     public bool IsPlayerDead { get { return isDead; } }
 
@@ -41,11 +43,19 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         isDead = false;
         player = FindObjectOfType<PlayerController>();
         deathManager = FindObjectOfType<DeathManager>();
-        //catChanger = FindObjectOfType<CatChangeManager>();
         pause = FindObjectOfType<PauseManager>();
         background = FindObjectOfType<BackGroundController>();
         catDie = GetComponent<AudioSource>();
         PlayerPrefs.SetString("Pause", "false");
+    }
+
+    public void SetUI(CatChangeManager catUI, GameOverManager gameoverUI, PauseManager pauseUI, Text lifeT)
+    {
+        catChanger = catUI;
+        gameOver = gameoverUI;
+        pauseScreen = pauseUI;
+
+        lifeText = lifeT;
         lifeText.text = "X " + player.life;
     }
 	

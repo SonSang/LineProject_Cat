@@ -32,7 +32,6 @@ public class CatChangeManager : MonoBehaviour, FindPlayerInterface {
         levelManager = FindObjectOfType<LevelManager>();
         findPlayer = FindObjectOfType<FindPlayerManager>();
         player = FindObjectOfType<PlayerController>();
-        this.gameObject.SetActive(false);
 	}
 
     public void FindPlayer()

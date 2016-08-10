@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FindPlayerManager : MonoBehaviour, FindPlayerInterface {
 
-    public CatChangeManager catChange;
+    private CatChangeManager catChange;
     private EnemyController[] enemy;
     private LevelManager level;
 
@@ -11,6 +11,11 @@ public class FindPlayerManager : MonoBehaviour, FindPlayerInterface {
     {
         enemy = FindObjectsOfType<EnemyController>();
         level = FindObjectOfType<LevelManager>();
+    }
+
+    public void SetUI(CatChangeManager cat)
+    {
+        catChange = cat;
     }
 
     public void FindPlayer()

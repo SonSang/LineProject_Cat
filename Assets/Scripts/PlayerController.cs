@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
     private AudioSource[] catSE;
     private AudioSource catJump;
 
+    public void SetUI(GameObject mobileUI)
+    {
+        MobileControl = mobileUI;
+    }
+
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -46,7 +51,10 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-		MobileControl.transform.position = new Vector3 (transform.position.x, transform.position.y, MobileControl.transform.position.z);
+        if (MobileControl != null)
+        {
+            MobileControl.transform.position = new Vector3(transform.position.x, transform.position.y, MobileControl.transform.position.z);
+        }
 
         moveVelocity = 0;
 
