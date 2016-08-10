@@ -56,7 +56,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         pauseScreen = pauseUI;
 
         lifeText = lifeT;
-        lifeText.text = "X " + player.life;
+        //lifeText.text = "X " + player.life;
     }
 	
 	// Update is called once per frame
