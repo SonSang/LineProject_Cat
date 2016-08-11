@@ -25,15 +25,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb2d;
     private Animator anim;
-    public GameObject MobileControl;
 
     private AudioSource[] catSE;
     private AudioSource catJump;
-
-    public void SetUI(GameObject mobileUI)
-    {
-        MobileControl = mobileUI;
-    }
 
     void Awake()
     {
@@ -51,10 +45,6 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-        if (MobileControl != null)
-        {
-            MobileControl.transform.position = new Vector3(transform.position.x, transform.position.y, MobileControl.transform.position.z);
-        }
 
         moveVelocity = 0;
 

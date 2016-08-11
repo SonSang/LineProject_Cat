@@ -7,6 +7,7 @@ public class CatChangeManager : MonoBehaviour, FindPlayerInterface {
     public GameObject[] cats;
     private PlayerController player;
     private FindPlayerManager findPlayer;
+    private CameraMove cam;
 
     public void SelectCat(string catName)
     {
@@ -19,10 +20,10 @@ public class CatChangeManager : MonoBehaviour, FindPlayerInterface {
         if (catName == "RoCat")
             Instantiate(cats[2], player.transform.position, player.transform.rotation).name = "RoCat";
 
-        GameObject mobileControl = player.MobileControl; // for test
+        GameObject mobileControl = cam.MobileControl; // for test
         Destroy(player.gameObject);
         findPlayer.FindPlayer();
-        player.MobileControl = mobileControl;            // for test
+        cam.MobileControl = mobileControl;            // for test
         levelManager.respawn();
         this.gameObject.SetActive(false);
     }
@@ -32,6 +33,7 @@ public class CatChangeManager : MonoBehaviour, FindPlayerInterface {
         levelManager = FindObjectOfType<LevelManager>();
         findPlayer = FindObjectOfType<FindPlayerManager>();
         player = FindObjectOfType<PlayerController>();
+        cam = FindObjectOfType<CameraMove>();
 	}
 
     public void FindPlayer()

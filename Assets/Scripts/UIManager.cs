@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour {
         p.gameObject.SetActive(false);
 
         FindObjectOfType<LevelManager>().SetUI(c, g, p, lt);
-        FindObjectOfType<PlayerController>().SetUI(m);
+        FindObjectOfType<CameraMove>().SetUI(m);
         FindObjectOfType<FindPlayerManager>().SetUI(c);
 	}
 }

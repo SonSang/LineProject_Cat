@@ -18,8 +18,10 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
     public float leftLimit;
     public float rightLimit;
 
-	// Use this for initialization
-	void Start () {
+    public GameObject MobileControl;
+
+    // Use this for initialization
+    void Start () {
         FindPlayer();
         canMoveUp = true;
         canMoveLeft = true;
@@ -28,6 +30,7 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
 	
 	// Update is called once per frame
 	void Update () {
+
         camPos = transform.position;
         Debug.DrawLine(new Vector3(camPos.x - xOffset, camPos.y), new Vector3(camPos.x + xOffset, camPos.y), Color.red);
         Debug.DrawLine(new Vector3(camPos.x, camPos.y - yOffset), new Vector3(camPos.x, camPos.y + yOffset), Color.red);
@@ -74,11 +77,21 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
                 transform.position = new Vector3(transform.position.x, transform.position.y, camPos.z);
             }
         }
+
+        if (MobileControl != null)
+        {
+            MobileControl.transform.position = new Vector3(transform.position.x, transform.position.y, MobileControl.transform.position.z);
+        }
     }
 
 
     public void FindPlayer()
     {
         player = FindObjectOfType<PlayerController>();
+    }
+
+    public void SetUI(GameObject mobileUI)
+    {
+        MobileControl = mobileUI;
     }
 }
