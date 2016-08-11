@@ -6,11 +6,13 @@ public class FindPlayerManager : MonoBehaviour, FindPlayerInterface {
     private CatChangeManager catChange;
     private EnemyController[] enemy;
     private LevelManager level;
+    private CameraMove camera;
 
     void Start()
     {
         enemy = FindObjectsOfType<EnemyController>();
         level = FindObjectOfType<LevelManager>();
+        camera = FindObjectOfType<CameraMove>();
     }
 
     public void SetUI(CatChangeManager cat)
@@ -26,5 +28,6 @@ public class FindPlayerManager : MonoBehaviour, FindPlayerInterface {
         {
             enemy[i].FindPlayer();
         }
+        camera.FindPlayer();
     }
 }
