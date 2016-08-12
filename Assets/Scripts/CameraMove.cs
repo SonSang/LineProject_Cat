@@ -26,7 +26,8 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
         canMoveUp = true;
         canMoveLeft = true;
         canMoveRight = true;
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
