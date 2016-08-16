@@ -6,19 +6,23 @@ public class DeathManager : MonoBehaviour {
     private GameObject corpse;
 
     // Create corpse when player die
-	public void makeCorpse(PlayerController player, KillPlayer kp, float lastYPos)
+	public float makeCorpse(PlayerController player, KillPlayer kp)
     {
         corpse = player.corpse;
 
-        if((kp as DeathHorizonManager) != null)
+        DeathHorizonManager horizon = kp as DeathHorizonManager;
+
+        if (horizon != null)
         {
-            Vector3 corpsePos = new Vector3(player.transform.position.x, lastYPos - 1, player.transform.position.z);
+            Vector3 corpsePos = new Vector3(player.transform.position.x, horizon.respawnHeight, player.transform.position.z);
             (Instantiate(corpse, corpsePos, player.transform.rotation) as GameObject).transform.localScale = player.transform.localScale;
-            return;
+            return horizon.respawnHeight;
         }
 
         GameObject c = Instantiate(corpse, player.transform.position, player.transform.rotation) as GameObject;
 
         c.transform.localScale = player.transform.localScale;
+
+        return c.transform.position.y;
     }
 }

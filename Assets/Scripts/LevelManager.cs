@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     public bool IsPlayerDead { get { return isDead; } }
 
-    private float lastYPos;
+    private float corpseYPos;
     private float lastCamYPos;
     
     private int formerLife;
@@ -65,7 +65,6 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 	void Update () {
         if(!isDead && player.isGrounded)
         {
-            lastYPos = player.transform.position.y;
             lastCamYPos = background.GetBGPosY();
         }
 
@@ -115,7 +114,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
             player.GetComponent<Renderer>().enabled = false;
             player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             player.GetComponent<Rigidbody2D>().isKinematic = true;
-            deathManager.makeCorpse(player, kp, lastYPos);
+            corpseYPos = deathManager.makeCorpse(player, kp);
 
             isDead = true;
 
@@ -137,7 +136,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
             if(kp as DeathHorizonManager != null)
             {
-                player.transform.position = new Vector3(player.transform.position.x, lastYPos,
+                player.transform.position = new Vector3(player.transform.position.x, corpseYPos + 1,
                     player.transform.position.z);
             }                
             else
