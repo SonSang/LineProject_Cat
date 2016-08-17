@@ -43,14 +43,12 @@ public class DeathManager : MonoBehaviour {
 
     void SortEdgeSpot()
     {
-        Debug.Log("Start sorgin");
         for(int j = 1; j < edgeSpot.Length; j++)
         {
             for (int i = 0; i < edgeSpot.Length - j; i++)
             {
                 if (edgeSpot[i].transform.position.x > edgeSpot[i + 1].transform.position.x)
                 {
-                    Debug.Log("Change");
                     GameObject temp = edgeSpot[i];
                     edgeSpot[i] = edgeSpot[i + 1];
                     edgeSpot[i + 1] = temp;
