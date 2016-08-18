@@ -25,7 +25,9 @@ public class DeathManager : MonoBehaviour {
             {
                 if(edgeSpot[i].transform.position.x < player.transform.position.x && edgeSpot[i+1].transform.position.x > player.transform.position.x)
                 {
-                    respawnHeight = (edgeSpot[i].transform.position.y + edgeSpot[i + 1].transform.position.y) / 2 - 0.5f;
+                    respawnHeight = (edgeSpot[i].transform.position.y == edgeSpot[i+1].transform.position.y)?
+                        (edgeSpot[i].transform.position.y + edgeSpot[i + 1].transform.position.y) / 2 - 0.5f :
+                        (edgeSpot[i].transform.position.y + edgeSpot[i + 1].transform.position.y) / 2;
                     break;
                 }
             }
