@@ -45,6 +45,12 @@ public class RocketJump : MonoBehaviour
 			IsRocketJumping = false;
 			GetComponent<PlayerController> ().moveSpeed	 = 5;
 		}
+        else if (FindObjectOfType<LevelManager>().IsPlayerDead)
+        {
+            Camera.GetComponent<CameraMove>().enabled = true;
+            IsRocketJumping = false;
+            GetComponent<PlayerController>().moveSpeed = 5;
+        }
 
 		if (transform.position.y > 10)
 		{
