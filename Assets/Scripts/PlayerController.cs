@@ -5,11 +5,11 @@ public class PlayerController : MonoBehaviour
 {
     // Speed
     public int moveSpeed;
-    private float moveVelocity;
+	private float moveVelocity;
     public int jumpSpeed;
 
     // Move State
-    private bool isRight = true;
+	public bool isRight = true;
     private bool jump = false;
     private bool readyToJump = true;
 
@@ -48,12 +48,12 @@ public class PlayerController : MonoBehaviour
 
         moveVelocity = 0;
 
-		if(PlayerPrefs.GetString("HorizontalDirection") == "Right" || Input.GetKey(KeyCode.RightArrow))
+		if((PlayerPrefs.GetString("HorizontalDirection") == "Right" || Input.GetKey(KeyCode.RightArrow)))
         {
             moveVelocity = moveSpeed;
         }
 
-		if(PlayerPrefs.GetString("HorizontalDirection") == "Left"  || Input.GetKey(KeyCode.LeftArrow))
+		if((PlayerPrefs.GetString("HorizontalDirection") == "Left"  || Input.GetKey(KeyCode.LeftArrow)))
         {
             moveVelocity = (-1) * moveSpeed;
         }
@@ -67,12 +67,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("Walking", false);
-        }
-        
-        if(gameObject.GetComponent<RocketJump>() != null)
-        {
-            if (gameObject.GetComponent<RocketJump>().IsRocketJumping == false)
-                rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
         }
 
         if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded)

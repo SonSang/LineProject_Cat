@@ -4,18 +4,16 @@ using System.Collections;
 public class RocketJump : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    private double RocketJumpSpeed;
-    private double RocketMoveSpeed;
 
     public bool IsRocketJumping;
+	private bool WhileRocketJumping;
+	private GameObject Camera;
 
     private AudioSource[] catSE;
     private AudioSource rocketJumpSE;
 
     void Start()
     {
-        RocketJumpSpeed = gameObject.GetComponent<PlayerController>().jumpSpeed * 2.4678;
-        RocketMoveSpeed = gameObject.GetComponent<PlayerController>().moveSpeed / 6;
         rb2d = GetComponent<Rigidbody2D>();
 
         catSE = GetComponents<AudioSource>();
@@ -24,20 +22,38 @@ public class RocketJump : MonoBehaviour
             if (catSE[i].clip.name == "Cat_RocketJump")
                 rocketJumpSE = catSE[i];
         }
+
+		Camera = GameObject.Find ("Main Camera");
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true") && IsRocketJumping == false)
+		if (IsRocketJumping)
+			GetComponent<PlayerController> ().moveSpeed	 = 0;
+
+		if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true") && GetComponent<PlayerController>().isGrounded == true)
         {
-            IsRocketJumping = true;
-            rb2d.velocity = new Vector2((float)RocketMoveSpeed, (float)RocketJumpSpeed);
+			IsRocketJumping = true;
+			WhileRocketJumping = true;
+            rb2d.velocity = new Vector2(0, 30);
+			Camera.GetComponent<CameraMove> ().enabled = false;
             rocketJumpSE.Play();
         }
+		else if (GetComponent<PlayerController>().isGrounded == true && IsRocketJumping == true && Camera.GetComponent<CameraMove> ().enabled == false && WhileRocketJumping == false)
+		{
+			Camera.GetComponent<CameraMove> ().enabled = true;
+			IsRocketJumping = false;
+			GetComponent<PlayerController> ().moveSpeed	 = 5;
+		}
 
-        if (gameObject.GetComponent<PlayerController>().isGrounded == true && IsRocketJumping == true)
-        {
-            IsRocketJumping = false;
-        }
+		if (transform.position.y > 10)
+		{
+			WhileRocketJumping = false;
+			rb2d.velocity = new Vector2(0, 0);
+			if(GetComponent<PlayerController>().isRight)
+				transform.position = new Vector3 (transform.position.x + 6, 6, transform.position.z);
+			else
+				transform.position = new Vector3 (transform.position.x - 6, 6, transform.position.z);
+		}
     }
 }
