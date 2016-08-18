@@ -15,9 +15,20 @@ public class LevelSelectManager : MonoBehaviour {
 
     private bool isStageSelected;
 
+    private bool loadScene = false;
+
+    [SerializeField]
+    private Text loadingText;
+
     void Start()
     {
         isStageSelected = false;
+    }
+
+    void Update()
+    {
+        if(loadScene)
+            loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
     }
 
     public void LoadMainMenu()
@@ -50,6 +61,15 @@ public class LevelSelectManager : MonoBehaviour {
     // subStageCode = "mainstagenum"+"substagenum"
     public void LoadSelectedSubStage(string subStageCode)
     {
-        SceneManager.LoadScene("Stage" + subStageCode);
+        loadingText.text = "로딩중...";
+        StartCoroutine(LoadScene(subStageCode));
+    }
+
+    IEnumerator LoadScene(string subStageCode)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync("Stage" + subStageCode);
+
+        while (!async.isDone)
+            yield return null;
     }
 }

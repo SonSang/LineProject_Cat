@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -9,6 +10,11 @@ public class TitleMenuManager : MonoBehaviour {
 
     public string newGameScene;
     public string loadGameScene;
+
+    private bool loadScene = false;
+    [SerializeField]
+    private Text loadingText;
+
     
     public void NewGame()
     {
@@ -20,7 +26,8 @@ public class TitleMenuManager : MonoBehaviour {
             }
         }
         PlayerPrefs.SetInt("Level1_1Unlocked", 1);
-        SceneManager.LoadScene(newGameScene);
+        loadingText.text = "로딩중...";
+        StartCoroutine(LoadScene(newGameScene));
     }
 
     public void LoadGame()
@@ -36,5 +43,19 @@ public class TitleMenuManager : MonoBehaviour {
     public void Quit()
     {
         Application.Quit();
+    }
+
+    void Update()
+    {
+        if (loadScene)
+            loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
+    }
+
+    IEnumerator LoadScene(string sceneToLoad)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneToLoad);
+
+        while (!async.isDone)
+            yield return null;
     }
 }
