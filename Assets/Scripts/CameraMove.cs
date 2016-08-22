@@ -14,9 +14,12 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
     private bool canMoveLeft;
     private bool canMoveRight;
 
-    public float upLimit;
-    public float leftLimit;
-    public float rightLimit;
+    //private float upLimit;
+    private float leftLimit;
+    private float rightLimit;
+
+    private Transform leftLimitPoint;
+    private Transform rightLimitPoint;   
 
     public GameObject MobileControl;
 
@@ -27,6 +30,22 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
         canMoveLeft = true;
         canMoveRight = true;
 
+        GameObject[] endPos = GameObject.FindGameObjectsWithTag("EndSpot");
+        if (endPos[0].transform.position.x < endPos[1].transform.position.x)
+        {
+            leftLimitPoint = endPos[0].transform;
+            rightLimitPoint = endPos[1].transform;
+        }
+        else
+        {
+            leftLimitPoint = endPos[1].transform;
+            rightLimitPoint = endPos[0].transform;
+        }
+
+        float leftLimitOffset = Camera.main.ScreenToWorldPoint(Vector3.zero).x - leftLimitPoint.position.x;
+        leftLimit = Camera.main.transform.position.x - leftLimitOffset;
+        float rightLimitOffset = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x - rightLimitPoint.position.x;
+        rightLimit = Camera.main.transform.position.x - rightLimitOffset;
     }
 	
 	// Update is called once per frame
@@ -45,21 +64,22 @@ public class CameraMove : MonoBehaviour, FindPlayerInterface {
             canMoveRight = false;
         else
             canMoveRight = true;
-
+/*
         if (player.transform.position.y > upLimit - 0.5)
             canMoveUp = false;
         else
             canMoveUp = true;
-
+*/
         if (transform.position != player.transform.position)
         {
+            /*
             if (!canMoveUp)
             {
                 transform.position = Vector2.Lerp(new Vector2(transform.position.x, upLimit),
                     new Vector2(player.transform.position.x, upLimit), Time.deltaTime * camSpeed);
                 transform.position = new Vector3(transform.position.x, transform.position.y, camPos.z);
-            }
-            else if (!canMoveLeft)
+            }*/
+            if (!canMoveLeft)
             {
                 transform.position = Vector2.Lerp(new Vector2(transform.position.x, transform.position.y),
                     new Vector2(leftLimit, player.transform.position.y), Time.deltaTime * camSpeed);

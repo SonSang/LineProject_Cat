@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2016-07-27 오전 11:21:25-->
-<Tiled2Unity version="1.0.7.6">
+<!--Last exported: 2016-08-22 오후 1:50:52-->
+<Tiled2Unity version="1.0.7.2">
   <AssignMaterial mesh="mesh_0001" material="normal 1 soil" />
   <AssignMaterial mesh="mesh_0002" material="normal 1 platform" />
-  <Prefab name="Stage1-1" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="300" numTilesHigh="30" tileWidth="80" tileHeight="80" exportScale="1" mapWidthInPixels="24000" mapHeightInPixels="2400">
+  <Prefab name="Stage1-1" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="300" numTilesHigh="30" tileWidth="80" tileHeight="80" exportScale="1" mapWidthInPixels="24000" mapHeightInPixels="2400" scale="0.0125">
     <GameObject name="Tile Layer 1" x="0" y="0" z="0">
       <GameObject name="normal 1 soil" copy="mesh_0001" sortingLayerName="" sortingOrder="0" opacity="1" />
       <GameObject name="normal 1 platform" copy="mesh_0002" sortingLayerName="" sortingOrder="0" opacity="1" />
