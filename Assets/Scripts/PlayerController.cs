@@ -17,7 +17,10 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius;
     public bool isGrounded;
+    public bool isOnMovingPlatform;
+    public GameObject steppingMovingPlatform;
     public LayerMask whatIsGround;
+    public LayerMask whatIsMovingPlatform;
 
     // Life
     public int life;
@@ -44,7 +47,18 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
 	{
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround)
+            || Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsMovingPlatform);
+
+        isOnMovingPlatform = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsMovingPlatform);
+
+        if (isOnMovingPlatform)
+        {
+            steppingMovingPlatform = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsMovingPlatform).gameObject;
+            this.transform.SetParent(steppingMovingPlatform.transform);
+        }            
+        else
+            this.transform.SetParent(null);
 
         moveVelocity = 0;
 
