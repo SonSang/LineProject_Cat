@@ -38,6 +38,11 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     
     private int formerLife;
 
+    // About the stage's can food acquisition
+    public string stageNum;
+    private GameObject[] canfoodArr;
+    public int canfoodNum;
+
 	// Use this for initialization
 	void Start () {
         isDead = false;
@@ -47,6 +52,36 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         background = FindObjectOfType<BackGroundController>();
         catDie = GetComponent<AudioSource>();
         PlayerPrefs.SetString("Pause", "false");
+        SetCanFoodTag();
+    }
+
+    void SetCanFoodTag()
+    {
+        canfoodArr = GameObject.FindGameObjectsWithTag("CanFood");
+        canfoodNum = canfoodArr.Length;
+        SortCanFoodArr();
+        string[] canfoodTagStr = new string[canfoodArr.Length];
+        for(int i = 0; i < canfoodTagStr.Length; i++)
+        {
+            canfoodTagStr[i] = stageNum + "_can_" + i;                      // set variable about can food!!!
+            canfoodArr[i].GetComponent<CanFood>().SetTag(canfoodTagStr[i]);
+        }
+    }
+
+    void SortCanFoodArr()
+    {
+        for (int j = 1; j < canfoodArr.Length; j++)
+        {
+            for (int i = 0; i < canfoodArr.Length - j; i++)
+            {
+                if (canfoodArr[i].transform.position.x > canfoodArr[i + 1].transform.position.x)
+                {
+                    GameObject temp = canfoodArr[i];
+                    canfoodArr[i] = canfoodArr[i + 1];
+                    canfoodArr[i + 1] = temp;
+                }
+            }
+        }
     }
 
     public void SetUI(CatChangeManager catUI, GameOverManager gameoverUI, PauseManager pauseUI, Text lifeT)
