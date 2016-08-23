@@ -42,6 +42,7 @@ public class TitleMenuManager : MonoBehaviour {
 
     public void Quit()
     {
+        Debug.Log("Quit Game!");
         Application.Quit();
     }
 
@@ -49,6 +50,8 @@ public class TitleMenuManager : MonoBehaviour {
     {
         if (loadScene)
             loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
+        if (Input.GetKey(KeyCode.Escape))
+            Quit();
     }
 
     IEnumerator LoadScene(string sceneToLoad)
