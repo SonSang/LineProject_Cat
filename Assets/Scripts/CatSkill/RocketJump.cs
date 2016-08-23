@@ -60,7 +60,7 @@ public class RocketJump : MonoBehaviour
 
 		if (transform.position.y > jumpStartPoint + 10 && WhileRocketJumping)
 		{
-			WhileRocketJumping = false;
+            WhileRocketJumping = false;
 			rb2d.velocity = new Vector2(0, 0);
             col.enabled = true;
             if (GetComponent<PlayerController>().isRight)
