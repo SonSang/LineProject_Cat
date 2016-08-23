@@ -4,6 +4,7 @@ using System.Collections;
 public class RocketJump : MonoBehaviour
 {
     private Rigidbody2D rb2d;
+    private Collider2D col;
 
     public bool IsRocketJumping;
 	private bool WhileRocketJumping;
@@ -17,6 +18,7 @@ public class RocketJump : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        col = GetComponent<CircleCollider2D>();
 
         catSE = GetComponents<AudioSource>();
         for(int i = 0; i < catSE.Length; i++)
@@ -38,6 +40,7 @@ public class RocketJump : MonoBehaviour
             jumpStartPoint = transform.position.y;
 			IsRocketJumping = true;
 			WhileRocketJumping = true;
+            col.enabled = false;
             rb2d.velocity = new Vector2(0, 30);
 			Camera.GetComponent<CameraMove> ().enabled = false;
             rocketJumpSE.Play();
@@ -59,7 +62,8 @@ public class RocketJump : MonoBehaviour
 		{
 			WhileRocketJumping = false;
 			rb2d.velocity = new Vector2(0, 0);
-			if(GetComponent<PlayerController>().isRight)
+            col.enabled = true;
+            if (GetComponent<PlayerController>().isRight)
 				transform.position = new Vector3 (transform.position.x + 6, jumpStartPoint + 10, transform.position.z);
 			else
 				transform.position = new Vector3 (transform.position.x - 6, jumpStartPoint + 10, transform.position.z);
