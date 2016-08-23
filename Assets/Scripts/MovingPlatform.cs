@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum PlatformType
+{
+    Horizontal,
+    Vertical
+}
+
 public class MovingPlatform : MonoBehaviour {
+
+    public PlatformType platformType;
 
     private Transform leftLimit;
     private Transform rightLimit;
@@ -33,7 +41,10 @@ public class MovingPlatform : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
         MaintainLimitPos();
-        FindDirection();
+        if (platformType == PlatformType.Horizontal)
+            FindHorizontalDirection();
+        else
+            FindVerticalDirection();
         
         if(IsMovingRight)
         {
@@ -56,7 +67,7 @@ public class MovingPlatform : MonoBehaviour {
         rightLimit.position = rightLimitPos;
     }
 
-    void FindDirection()
+    void FindHorizontalDirection()
     {
         if(IsMovingRight)
         {
@@ -66,6 +77,20 @@ public class MovingPlatform : MonoBehaviour {
         else
         {
             if (leftEnd.position.x < leftLimit.position.x + 0.5)
+                IsMovingRight = !IsMovingRight;
+        }
+    }
+
+    void FindVerticalDirection()
+    {
+        if (!IsMovingRight)
+        {
+            if (leftEnd.position.y > leftLimit.position.y - 0.5)
+                IsMovingRight = !IsMovingRight;
+        }
+        else
+        {
+            if (rightEnd.position.y < rightLimit.position.y + 0.5)
                 IsMovingRight = !IsMovingRight;
         }
     }
