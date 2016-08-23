@@ -12,6 +12,8 @@ public class RocketJump : MonoBehaviour
     private AudioSource[] catSE;
     private AudioSource rocketJumpSE;
 
+    float jumpStartPoint;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -33,6 +35,7 @@ public class RocketJump : MonoBehaviour
 
 		if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true") && GetComponent<PlayerController>().isGrounded == true)
         {
+            jumpStartPoint = transform.position.y;
 			IsRocketJumping = true;
 			WhileRocketJumping = true;
             rb2d.velocity = new Vector2(0, 30);
@@ -52,14 +55,14 @@ public class RocketJump : MonoBehaviour
             GetComponent<PlayerController>().moveSpeed = 5;
         }
 
-		if (transform.position.y > 10)
+		if (transform.position.y > jumpStartPoint + 10 && WhileRocketJumping)
 		{
 			WhileRocketJumping = false;
 			rb2d.velocity = new Vector2(0, 0);
 			if(GetComponent<PlayerController>().isRight)
-				transform.position = new Vector3 (transform.position.x + 6, 10, transform.position.z);
+				transform.position = new Vector3 (transform.position.x + 6, jumpStartPoint + 10, transform.position.z);
 			else
-				transform.position = new Vector3 (transform.position.x - 6, 10, transform.position.z);
+				transform.position = new Vector3 (transform.position.x - 6, jumpStartPoint + 10, transform.position.z);
 		}
     }
 }
