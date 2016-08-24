@@ -65,7 +65,10 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     void SetCanFoodTag()
     {
         canfoodArr = GameObject.FindGameObjectsWithTag("CanFood");
+
         canfoodNum = canfoodArr.Length;
+        PlayerPrefs.SetInt("Stage" + stageNum + "_can_num_", canfoodNum);
+
         SortArr(canfoodArr);
         string[] canfoodTagStr = new string[canfoodArr.Length];
         for(int i = 0; i < canfoodTagStr.Length; i++)
