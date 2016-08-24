@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour {
     private GameObject h;
     private PauseManager p;
     private Text lt;
+    private RawImage can;
 
     // Use this for initialization
     void Start () {
@@ -23,6 +24,12 @@ public class UIManager : MonoBehaviour {
 
         h = Instantiate(HUD);
         lt = h.GetComponentInChildren<Text>();
+        RawImage[] r = h.GetComponentsInChildren<RawImage>();
+        for(int i = 0; i < r.Length; i++)
+        {
+            if (r[i].name == "CanFoodZone")
+                can = r[i];
+        }
 
         g = Instantiate(GameOverUI);
         g.gameObject.SetActive(false);
@@ -33,7 +40,7 @@ public class UIManager : MonoBehaviour {
         p = Instantiate(PauseUI);
         p.gameObject.SetActive(false);
 
-        FindObjectOfType<LevelManager>().SetUI(c, g, p, lt);
+        FindObjectOfType<LevelManager>().SetUI(c, g, p, lt, can);
         FindObjectOfType<CameraMove>().SetUI(m);
         FindObjectOfType<FindPlayerManager>().SetUI(c);
 	}

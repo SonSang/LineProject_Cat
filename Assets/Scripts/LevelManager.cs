@@ -42,6 +42,14 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     public string stageNum;
     private GameObject[] canfoodArr;
     public int canfoodNum;
+    private int gottenCanNum = 0;
+    private RawImage canfoodUIZone;
+    private Image[] cans;
+
+    void Awake()
+    {
+        SetCanFoodTag();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -52,14 +60,13 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         background = FindObjectOfType<BackGroundController>();
         catDie = GetComponent<AudioSource>();
         PlayerPrefs.SetString("Pause", "false");
-        SetCanFoodTag();
     }
 
     void SetCanFoodTag()
     {
         canfoodArr = GameObject.FindGameObjectsWithTag("CanFood");
         canfoodNum = canfoodArr.Length;
-        SortCanFoodArr();
+        SortArr(canfoodArr);
         string[] canfoodTagStr = new string[canfoodArr.Length];
         for(int i = 0; i < canfoodTagStr.Length; i++)
         {
@@ -68,32 +75,61 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         }
     }
 
-    void SortCanFoodArr()
+    void SortArr(GameObject[] arr)
     {
-        for (int j = 1; j < canfoodArr.Length; j++)
+        for (int j = 1; j < arr.Length; j++)
         {
-            for (int i = 0; i < canfoodArr.Length - j; i++)
+            for (int i = 0; i < arr.Length - j; i++)
             {
-                if (canfoodArr[i].transform.position.x > canfoodArr[i + 1].transform.position.x)
+                if (arr[i].transform.position.x > arr[i + 1].transform.position.x)
                 {
-                    GameObject temp = canfoodArr[i];
-                    canfoodArr[i] = canfoodArr[i + 1];
-                    canfoodArr[i + 1] = temp;
+                    GameObject temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
                 }
             }
         }
     }
 
-    public void SetUI(CatChangeManager catUI, GameOverManager gameoverUI, PauseManager pauseUI, Text lifeT)
+    void SortUIImageArr(Image[] arr)
+    {
+        for (int j = 1; j < arr.Length; j++)
+        {
+            for (int i = 0; i < arr.Length - j; i++)
+            {
+                if (arr[i].rectTransform.position.x < arr[i + 1].rectTransform.position.x)
+                {
+                    Image temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public void SetUI(CatChangeManager catUI, GameOverManager gameoverUI, PauseManager pauseUI, Text lifeT, RawImage can)
     {
         catChanger = catUI;
         gameOver = gameoverUI;
         pauseScreen = pauseUI;
 
         lifeText = lifeT;
+        lifeText.text = "X " + player.life;
+
+        canfoodUIZone = can;
+        cans = canfoodUIZone.GetComponentsInChildren<Image>();
+        SortUIImageArr(cans);
+        for (int i = 0; i < cans.Length; i++)
+            cans[i].color = Color.clear;
+        for (int i = 0; i < canfoodNum; i++)
+            cans[i].color = new Color(1, 1, 1, 0.5f);
 
         player = FindObjectOfType<PlayerController>();
-        lifeText.text = "X " + player.life;
+    }
+
+    public void GetCanFood()
+    {
+        cans[gottenCanNum++].color = new Color(1, 1, 1, 1);
     }
 	
 	// Update is called once per frame
