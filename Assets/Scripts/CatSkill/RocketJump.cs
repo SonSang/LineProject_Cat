@@ -64,9 +64,9 @@ public class RocketJump : MonoBehaviour
 			rb2d.velocity = new Vector2(0, 0);
             col.enabled = true;
             if (GetComponent<PlayerController>().isRight)
-				transform.position = new Vector3 (transform.position.x + 6, jumpStartPoint + 10, transform.position.z);
+				transform.position = new Vector3 (transform.position.x + 6, jumpStartPoint + 13, transform.position.z);
 			else
-				transform.position = new Vector3 (transform.position.x - 6, jumpStartPoint + 10, transform.position.z);
+				transform.position = new Vector3 (transform.position.x - 6, jumpStartPoint + 13, transform.position.z);
 		}
     }
 }

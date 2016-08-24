@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="600" height="120" tilewidth="80" tileheight="80" nextobjectid="1">
+ <tileset firstgid="1" name="Ground1Platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 3 platform.png" width="80" height="80"/>
+  <tile id="0">
+   <properties>
+    <property name="unity:scale" value="0.0125"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="Ground1Soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 3 soil.png" width="80" height="80"/>
+  <tile id="0">
+   <properties>
+    <property name="unity:scale" value="0.0125"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="Ground2Platform" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 1 platform.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="4" name="Ground2Soil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/normal 1 soil.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="5" name="WaterSoil" tilewidth="80" tileheight="80" tilecount="1" columns="1">
+  <image source="../../Image/Tile/water 1 soil.png" width="80" height="80"/>
+ </tileset>
+ <layer name="Ground" width="600" height="120">
+  <properties>
+   <property name="unity:scale" value="0.0125"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt3dFq5DAMQNF2Yf//l5dlKeyDUhrFsWz5HPDTvLSaolxCOvPxAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwhs/gAACQ9ys4/Iw2BQAi+irP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiGiHP7ACAiEbIMzsAIKIR8swOAIhohDyzAwAiUSN8Lni+VP8cXyeam74CAP666oTVzi4/LwBAdY/oKwCgm+oe0VcAQDfVPaKvAIBuqntEXwEA3VT3iL4CAHhXtq94193P0QBgD3b6GfTVmty/A+jJTj+DvlqTvgLoyU4/g74ab8Q9X30F0JOdfgZ9tSZ9BdCTnX4GfXXfjGcS9RVAT3b6GfTVmvQVQE92+hn01Zr0FUBPdvoZ9FWs+nNJ9BVAT3b6GfTVmvQVQE92+hn01Zr0FUBPdvoZ9NV9/n8QgCw7HeroK4Ce7HSoo68AerLTIcf34wBwxU6HOvoKoCc7HeroK4Ce7HSoo68AerLT4Z/oeaq75y59BdCTnQ519BVAT3b6WkbdF2EP+gqgJzt9Ld6Ls+grgJ7s9LV4L8Ya8UzVm0dfAfRkp+9l5PPXd14beWb6ab+sfgDYi52+l6fX6d//nTuv7doK1V2048wAeM5O34u+uqe6i3acGQDP2el70Vf3VHfRjjMD4Lnvdnr1s787PeczS/V1frdWqP5dd5wZAM9VXzdck3hT9d+gv2WAM1VfN1yTAIBuqhtIXwEA3VQ3kL4CALqpbiB9BQB0U91A+goAgJWd9FkVAAAzuJcHADCWvgIAGEtfAQCMpa8AAMbSVwAAY+krAICx9BUAwFj6CgBgLH0FADCWvgIAGKt7X119/8/TAwBwpXtf+S5wAGC2Hfvhzn0mfQUAzLZjP7zVTPoKABhhVj+MfPapuq30FQDwnVn9UN1D+goAmEVf6SsAYKyrfhj9eQbVPaSvAIBZqjtl1wMAcKW6U3Y9AABXqjtl1wMAAAAAAAAAAAAAAAAAAAAAAAAAsJs/BNYXog==
+  </data>
+ </layer>
+</map>
