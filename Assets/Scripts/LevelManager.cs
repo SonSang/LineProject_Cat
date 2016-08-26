@@ -62,6 +62,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         PlayerPrefs.SetString("Pause", "false");
     }
 
+    // set "Stage0-0_can_num_"(total number of can on the level), "0-0_can_0"(code for each of cans)
     void SetCanFoodTag()
     {
         canfoodArr = GameObject.FindGameObjectsWithTag("CanFood");
@@ -100,7 +101,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         {
             for (int i = 0; i < arr.Length - j; i++)
             {
-                if (arr[i].rectTransform.position.x < arr[i + 1].rectTransform.position.x)
+                if (arr[i].rectTransform.position.x > arr[i + 1].rectTransform.position.x)
                 {
                     Image temp = arr[i];
                     arr[i] = arr[i + 1];
@@ -115,6 +116,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         catChanger = catUI;
         gameOver = gameoverUI;
         pauseScreen = pauseUI;
+        player = FindObjectOfType<PlayerController>();
 
         lifeText = lifeT;
         lifeText.text = "X " + player.life;
@@ -125,9 +127,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         for (int i = 0; i < cans.Length; i++)
             cans[i].color = Color.clear;
         for (int i = 0; i < canfoodNum; i++)
-            cans[i].color = new Color(1, 1, 1, 0.5f);
-
-        player = FindObjectOfType<PlayerController>();
+            cans[i].color = new Color(1, 1, 1, 0.5f);        
     }
 
     public void GetCanFood()
