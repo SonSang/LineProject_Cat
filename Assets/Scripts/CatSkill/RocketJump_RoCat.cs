@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RocketJump : MonoBehaviour
+public class RocketJump_RoCat : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private Collider2D col;

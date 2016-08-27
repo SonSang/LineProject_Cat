@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WallJump : MonoBehaviour
+public class WallJump_WallCat : MonoBehaviour
 {
 	public GameObject WallChecker;
 
