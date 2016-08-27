@@ -4,11 +4,11 @@ using System.Collections;
 public class CanFood : MonoBehaviour {
 
     private string canfoodTag;
-    private LevelManager levelManager;
+    private CanFoodManager canFoodManager;
 
     void Start()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        canFoodManager = FindObjectOfType<CanFoodManager>();
     }
 
     public void SetTag(string tag)
@@ -20,7 +20,7 @@ public class CanFood : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            levelManager.GetCanFood();
+            canFoodManager.GetCanFood();
             PlayerPrefs.SetInt(canfoodTag, 1);
             Destroy(this.gameObject);
         }            

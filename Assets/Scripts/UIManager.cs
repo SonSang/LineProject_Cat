@@ -40,7 +40,8 @@ public class UIManager : MonoBehaviour {
         p = Instantiate(PauseUI);
         p.gameObject.SetActive(false);
 
-        FindObjectOfType<LevelManager>().SetUI(c, g, p, lt, can);
+        FindObjectOfType<LevelManager>().SetUI(c, g, p, lt);
+        FindObjectOfType<CanFoodManager>().SetUI(can);
         FindObjectOfType<CameraMove>().SetUI(m);
         FindObjectOfType<FindPlayerManager>().SetUI(c);
 	}
