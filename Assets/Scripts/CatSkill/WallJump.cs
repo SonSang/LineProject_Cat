@@ -8,6 +8,7 @@ public class WallJump : MonoBehaviour
 	private bool IsOnWall;
 	private bool Jumping;
     private bool WhileOnWall;
+    private bool IsRight;
 
 	void Start()
 	{
@@ -18,9 +19,11 @@ public class WallJump : MonoBehaviour
 
 	void Update()
 	{
-        if (IsOnWall && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
+        IsRight = GetComponent<PlayerController>().isRight;
+
+        if (IsOnWall && ((Input.GetKey(KeyCode.LeftArrow) || PlayerPrefs.GetString("HorizontalDirection") == "Left") || (Input.GetKey(KeyCode.RightArrow) || PlayerPrefs.GetString("HorizontalDirection") == "Right")))
         {
-            GetComponent<Rigidbody2D>().gravityScale = 0.03f;
+            GetComponent<Rigidbody2D>().gravityScale = 0.8f;
             GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
             WhileOnWall = true;
         }
@@ -32,14 +35,23 @@ public class WallJump : MonoBehaviour
 
         if (WhileOnWall && Jumping)
         {
-            GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 5f);
+            if (IsRight && (Input.GetKey(KeyCode.LeftArrow) || PlayerPrefs.GetString("HorizontalDirection") == "Left"))
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-5f, 14f);
+            }
+            else if (!IsRight && (Input.GetKey(KeyCode.RightArrow) || PlayerPrefs.GetString("HorizontalDirection") == "Right"))
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(5f, 14f);
+            }
+            else
+                GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 5f);
         }
 
-        if (!Jumping && Input.GetKey("space"))
+        if (!Jumping && (Input.GetKey("space") || PlayerPrefs.GetString("Jump") == "Jump"))
         {
             Jumping = true;
         }
-        else if (!Input.GetKey("space"))
+        else if (!(Input.GetKey("space") || PlayerPrefs.GetString("Jump") == "Jump"))
         {
             Jumping = false;
         }
@@ -47,7 +59,9 @@ public class WallJump : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		IsOnWall = true;
+        Debug.Log(other.tag);
+        if(other.tag == "Untagged")
+            IsOnWall = true;
 	}
 
 	void OnTriggerExit2D(Collider2D other)
