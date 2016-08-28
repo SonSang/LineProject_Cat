@@ -54,11 +54,10 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         catChanger = catUI;
         gameOver = gameoverUI;
         pauseScreen = pauseUI;
+        player = FindObjectOfType<PlayerController>();
 
         lifeText = lifeT;
-
-        player = FindObjectOfType<PlayerController>();
-        lifeText.text = "X " + player.life;
+        lifeText.text = "X " + player.life; 
     }
 	
 	// Update is called once per frame

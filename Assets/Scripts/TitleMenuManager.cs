@@ -22,10 +22,10 @@ public class TitleMenuManager : MonoBehaviour {
         {
             for(int j = 0; j < subStageCount; j++)
             {
-                PlayerPrefs.SetInt("Level" + (i + 1) + "_" + (j + 1) + "Unlocked", 0);
+                PlayerPrefs.SetInt("Stage" + (i + 1) + "-" + (j + 1) + "Unlocked", 0);
             }
         }
-        PlayerPrefs.SetInt("Level1_1Unlocked", 1);
+        PlayerPrefs.SetInt("Stage1-1Unlocked", 1);
         loadingText.text = "로딩중...";
         StartCoroutine(LoadScene(newGameScene));
     }

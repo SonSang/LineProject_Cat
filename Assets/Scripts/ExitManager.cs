@@ -7,9 +7,12 @@ public class ExitManager : MonoBehaviour {
     public string nextLevel;
     private bool isOnExit;
 
+    private bool isActivated;
+
 	// Use this for initialization
 	void Start () {
         isOnExit = false;
+        isActivated = true;
 	}
 	
 	// Update is called once per frame
@@ -17,8 +20,13 @@ public class ExitManager : MonoBehaviour {
 	    if(Input.GetKeyDown(KeyCode.UpArrow) || PlayerPrefs.GetString("Interact") == "true")
         {
             PlayerPrefs.SetInt(nextLevel + "Unlocked", 1);
-            if (isOnExit)
+            if (isOnExit && isActivated)
                 SceneManager.LoadScene(nextLevel);
+        }
+
+        if(isActivated)
+        {
+
         }
 	}
 
@@ -31,4 +39,6 @@ public class ExitManager : MonoBehaviour {
     {
         isOnExit = false;
     }
+
+
 }
