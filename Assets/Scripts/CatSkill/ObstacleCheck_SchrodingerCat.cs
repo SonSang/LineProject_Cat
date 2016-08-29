@@ -13,12 +13,10 @@ public class ObstacleCheck_SchrodingerCat : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         ObstacleCheck = true;
-        Debug.Log("Something!");
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         ObstacleCheck = false;
-        Debug.Log("Something Out!");
     }
 }
