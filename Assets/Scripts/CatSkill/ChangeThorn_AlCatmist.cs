@@ -28,7 +28,7 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !IsChanged)
+        if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true") && !IsChanged)
         {
             StartChangingTime = Time.time;
             IsChanged = true;

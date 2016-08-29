@@ -14,7 +14,7 @@ public class Clairvoyance_ClairvoCat : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true"))
         {
             if (ClairvoyanceMode)
             {
