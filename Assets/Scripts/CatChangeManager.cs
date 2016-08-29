@@ -20,6 +20,21 @@ public class CatChangeManager : MonoBehaviour, FindPlayerInterface {
         if (catName == "RoCat")
             Instantiate(cats[2], player.transform.position, player.transform.rotation).name = "RoCat";
 
+        if (catName == "AlCatmist")
+            Instantiate(cats[3], player.transform.position, player.transform.rotation).name = "AlCatmist";
+
+        if (catName == "BambooCat")
+            Instantiate(cats[4], player.transform.position, player.transform.rotation).name = "BambooCat";
+
+        if (catName == "ClairvoCat")
+            Instantiate(cats[5], player.transform.position, player.transform.rotation).name = "ClairvoCat";
+
+        if (catName == "DJCat")
+            Instantiate(cats[6], player.transform.position, player.transform.rotation).name = "DJCat";
+
+        if (catName == "WallCat")
+            Instantiate(cats[7], player.transform.position, player.transform.rotation).name = "WallCat";
+
         GameObject mobileControl = cam.MobileControl; // for test
         Destroy(player.gameObject);
         findPlayer.FindPlayer();
