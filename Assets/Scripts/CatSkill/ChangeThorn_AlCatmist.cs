@@ -14,6 +14,8 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
     private float NowTime;
     private bool IsChanged;
 
+    public GameObject BGM;
+
     void Start()
     {
         Thorns = GameObject.FindGameObjectsWithTag("Thorn");
@@ -41,7 +43,7 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
             for (int i = 0; i < Thorns.Length; i++)
             {
                 Thorns[i].GetComponent<SpriteRenderer>().sprite = Flower;
-                Thorns[i].GetComponent<Collider2D>().enabled = true;
+                Thorns[i].GetComponent<Collider2D>().enabled = false;
             }
         }
 
