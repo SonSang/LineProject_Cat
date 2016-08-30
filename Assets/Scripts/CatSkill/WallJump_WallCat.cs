@@ -5,7 +5,7 @@ public class WallJump_WallCat : MonoBehaviour
 {
 	public GameObject WallChecker;
 
-	private bool IsOnWall;
+	public bool IsOnWall;
 	private bool Jumping;
     private bool WhileOnWall;
     private bool IsRight;
@@ -26,12 +26,23 @@ public class WallJump_WallCat : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = 0.8f;
             GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
             WhileOnWall = true;
+			//GetComponent<Transform> ().rotation = new Quaternion (0, 0, 90, GetComponent<Transform> ().rotation.w);
+
         }
         else
         {
             GetComponent<Rigidbody2D>().gravityScale = 3f;
             WhileOnWall = false;
         }
+
+		if (WhileOnWall)
+		{
+			if(IsRight)
+				Debug.Log ("90");
+			else
+				Debug.Log ("-90");
+				
+		}
 
         if (WhileOnWall && Jumping)
         {
