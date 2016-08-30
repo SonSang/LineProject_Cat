@@ -99,6 +99,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     void Suicide()
     {
+        kp = new KillPlayer();
         if (player.life > 0)
         {
             StartCoroutine("respawnPlayerCo");
