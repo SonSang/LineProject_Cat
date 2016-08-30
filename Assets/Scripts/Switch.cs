@@ -9,6 +9,9 @@ public class Switch : MonoBehaviour
     public MovingPlatform movingPlatform;
     public GameObject platforms;
 
+    public AudioSource switchOn;
+    public AudioSource switchOff;
+
     public enum SwitchType
     {
         MovePlatform, StopPlatform, CreatePlatform, RemovePlatform
