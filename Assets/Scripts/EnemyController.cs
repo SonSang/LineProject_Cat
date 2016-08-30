@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyController : KillPlayer, FindPlayerInterface {
@@ -34,8 +35,14 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     private bool isRight;
     private bool isAttacking;
 
+    // For GroundPatrol state management
     private bool enteringPatrol;
-    
+
+    // For AirPatrol
+    private Vector3 targetPoint;
+    private Vector3 lastPosition;
+    private bool isAttackCooldown;
+    private int stuckCounter;
 
 
     public void FindPlayer() {
@@ -70,6 +77,9 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
             case EnemyAIType.GroundPatrol:
                 GroundPatrol();
                 break;
+            case EnemyAIType.AirPatrol:
+                AirPatrol();
+                break;
             case EnemyAIType.AvoidPlayer:
                 AvoidPlayer();
                 break;
@@ -78,8 +88,9 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
 
     void AvoidPlayer()
     {
+        // AI that avoids player. 
         if (Vector2.Distance(transform.position, player.transform.position) < attackDistance)
-        {
+        { // If player is close enough
             if (transform.position.x > player.transform.position.x){
                 // Player is at left side
                 SetXSpeed(moveSpeed);
@@ -91,18 +102,91 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         else{
             SetXSpeed(0);
         }
-
     }
-    
+
+    void AirPatrol() {
+        if (levelManager.IsPlayerDead) {
+            isAttacking = false;
+        }
+
+        // Select destination
+        Vector2 destination;
+        if (isAttacking) {
+            destination = targetPoint;
+        }
+        else if (isRight) {
+            destination = patrolRightPoint;
+        }
+        else {
+            destination = patrolLeftPoint;
+        }
+
+        // Go to the destination with set speed
+        Vector2 speedVector = destination - (Vector2)transform.position;
+        speedVector = moveSpeed * speedVector.normalized;
+        if (Vector2.Distance(speedVector, new Vector2(0, 0)) < 0.001f)
+        {
+            Debug.Log("HI");
+        }
+        rb2d.velocity = speedVector;
+
+        float epsilon = 0.01f;
+        if (Vector2.Distance(transform.position, lastPosition) < epsilon) {
+            stuckCounter += 1;
+        }
+        else {
+            stuckCounter = 0;
+        }
+        bool isStuck = stuckCounter > 10;
+
+        if (Vector2.Distance(transform.position, destination) < epsilon 
+            || isPointBetweenPoints(destination, lastPosition, transform.position)
+            || isStuck) {
+            // If destination is achieved or somehow went past it or got stuck
+            // then change the target
+            if (isAttacking) {
+                isAttacking = false;
+                isAttackCooldown = true;
+            }
+            else {
+                isRight = !isRight;
+                isAttackCooldown = false; // Set this here so that enemy needs to at least hit patrol point once before attacking
+            }
+        }
+
+        // Attack lock on
+        if (!isAttacking && !isAttackCooldown && Vector2.Distance(transform.position, destination) < attackDistance) {
+            // Lock on to the current player position
+            // The state must be 'Not attacking' since it needs to lock on
+            targetPoint = player.transform.position;
+            isAttacking = true;
+        }
+
+        lastPosition = transform.position;
+        Debug.Log(transform.position);
+    }
+
+    bool isPointBetweenPoints(Vector2 p, Vector2 a, Vector2 b)
+    {
+        // Check if point p lies on the line ab
+        float epsilon = 0.001f;
+        if (Vector2.Distance(a, b) < epsilon) {
+            return false;
+        }
+
+        // Triangle inequality
+        return Vector2.Distance(a, p) + Vector2.Distance(p, b) - Vector2.Distance(a, b) < epsilon;
+    }
+
     void GroundPatrol()
     {
         if (levelManager.IsPlayerDead || player.name == "BabyCat") {
             isAttacking = false;
         }
-        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > attackDistance){
+        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > attackDistance) {
             isAttacking = false;
         }
-        else{
+        else {
             isAttacking = true;
         }
 
