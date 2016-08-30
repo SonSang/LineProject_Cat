@@ -35,15 +35,6 @@ public class WallJump_WallCat : MonoBehaviour
             WhileOnWall = false;
         }
 
-		if (WhileOnWall)
-		{
-			if(IsRight)
-				Debug.Log ("90");
-			else
-				Debug.Log ("-90");
-				
-		}
-
         if (WhileOnWall && Jumping)
         {
             if (IsRight && (Input.GetKey(KeyCode.LeftArrow) || PlayerPrefs.GetString("HorizontalDirection") == "Left"))
