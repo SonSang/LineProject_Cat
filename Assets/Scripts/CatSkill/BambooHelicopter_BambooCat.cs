@@ -34,7 +34,7 @@ public class BambooHelicopter_BambooCat : MonoBehaviour
                 GetComponent<Rigidbody2D>().gravityScale = 3f;
             }
 
-            if (Input.GetKey(KeyCode.Space))
+			if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")))
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 2);
         }
     }
