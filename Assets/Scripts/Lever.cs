@@ -9,6 +9,11 @@ public class Lever : MonoBehaviour {
     public MovingPlatform movingPlatform;
     public GameObject platforms;
 
+    private AudioSource[] buttonSE;
+
+    public AudioSource leverOn;
+    public AudioSource leverOff;
+
     public enum LeverType
     {
         MovePlatform, StopPlatform, CreatePlatform, RemovePlatform
@@ -20,6 +25,15 @@ public class Lever : MonoBehaviour {
     void Start () {
 
         animator = GetComponent<Animator>();
+
+        buttonSE = GetComponents<AudioSource>();
+        for (int i = 0; i < buttonSE.Length; i++)
+        {
+            if (buttonSE[i].clip.name == "Cat_ButtonOn")
+                leverOn = buttonSE[i];
+            if (buttonSE[i].clip.name == "Cat_ButtonOff")
+                leverOff = buttonSE[i];
+        }
 
         switch (leverType)
         {
@@ -63,6 +77,17 @@ public class Lever : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         isOn = (isOn) ? false : true;
+
+        //Sound Play
+        if (isOn)
+        {
+            leverOn.Play();
+        }
+        else
+        {
+            leverOff.Play();
+        }
+
         switch (leverType)
         {
             case LeverType.MovePlatform:               
