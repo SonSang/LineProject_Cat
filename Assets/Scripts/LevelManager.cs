@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         else
             Resume();
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q) || PlayerPrefs.GetString("Suicide") == "true")
         {
             if(!IsPlayerDead && player.isGrounded)
             {

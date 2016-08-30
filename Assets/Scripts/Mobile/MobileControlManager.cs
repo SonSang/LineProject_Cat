@@ -12,7 +12,7 @@ public class MobileControlManager : MonoBehaviour
 		{
 			PlayerPrefs.SetString ("HorizontalDirection", "stop");
 			PlayerPrefs.SetString ("Jump", "stop");
-            PlayerPrefs.SetString ("Interact", "false");
+            PlayerPrefs.SetString ("Suicide", "false");
             PlayerPrefs.SetString("Action", "false");
             firstTouch = "none";
             secondTouch = "none";
@@ -43,9 +43,9 @@ public class MobileControlManager : MonoBehaviour
 					{
 						PlayerPrefs.SetString ("Jump", "Jump");
                     }
-                    else if (GetComponent<Collider2D>().name == "Interact")
+                    else if (GetComponent<Collider2D>().name == "Suicide")
                     {
-                        PlayerPrefs.SetString("Interact", "true");
+                        PlayerPrefs.SetString("Suicide", "true");
                     }
                     else if (GetComponent<Collider2D>().name == "Action")
                     {
@@ -68,6 +68,8 @@ public class MobileControlManager : MonoBehaviour
                     PlayerPrefs.SetString("Jump", "stop");
                 else if (firstTouch == "Action")
                     PlayerPrefs.SetString("Action", "false");
+                else if (firstTouch == "Suicide")
+                    PlayerPrefs.SetString("Suicide", "false");
             }
 
             if (Input.GetTouch (1).phase == TouchPhase.Began)
@@ -101,6 +103,10 @@ public class MobileControlManager : MonoBehaviour
                     {
                         PlayerPrefs.SetString("Action", "true");
                     }
+                    else if (GetComponent<Collider2D>().name == "Suicide")
+                    {
+                        PlayerPrefs.SetString("Suicide", "true");
+                    }
                 }
             }
 			else if (Input.GetTouch (1).phase == TouchPhase.Ended)
@@ -110,6 +116,7 @@ public class MobileControlManager : MonoBehaviour
 
                 PlayerPrefs.SetString ("Jump", "stop");
                 PlayerPrefs.SetString("Action", "false");
+                PlayerPrefs.SetString("Suicide", "false");
                 secondTouch = "none";
             }
 		}
