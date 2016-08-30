@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
 
@@ -21,6 +22,9 @@ public class UIManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         m = Instantiate(MobileControllerUI);
+        
+        if(SceneManager.GetActiveScene().name == "Tutorial")
+            StartCoroutine(ShowTutorialInstructionCo());
 
         h = Instantiate(HUD);
         lt = h.GetComponentInChildren<Text>();
@@ -45,4 +49,18 @@ public class UIManager : MonoBehaviour {
         FindObjectOfType<CameraMove>().SetUI(m);
         FindObjectOfType<FindPlayerManager>().SetUI(c);
 	}
+
+    IEnumerator ShowTutorialInstructionCo()
+    {
+        Debug.Log("ho");
+        yield return new WaitForSeconds(5);
+        for(int i = 0; i < m.transform.childCount; i++)
+        {
+            if(m.transform.GetChild(i).name == "Instruction")
+            {
+                m.transform.GetChild(i).gameObject.SetActive(false);
+                break;
+            }
+        }
+    }
 }

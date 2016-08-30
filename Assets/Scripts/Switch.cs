@@ -7,10 +7,11 @@ public class Switch : MonoBehaviour
     public bool isOn;
     private Animator animator;
     public MovingPlatform movingPlatform;
+    public GameObject platforms;
 
     public enum SwitchType
     {
-        MovePlatform, StopPlatform
+        MovePlatform, StopPlatform, CreatePlatform, RemovePlatform
     }
 
     public SwitchType switchType;
@@ -29,6 +30,13 @@ public class Switch : MonoBehaviour
                     throw new ArgumentNullException("Please Set MovingPlatform for this switch!!!!!");
                 }
                 break;
+            case SwitchType.CreatePlatform:
+            case SwitchType.RemovePlatform:
+                if (platforms == null)
+                {
+                    throw new ArgumentNullException("Please Set Platforms for this switch!!!!!");
+                }
+                break;
         }
 
         // Initialization
@@ -36,6 +44,12 @@ public class Switch : MonoBehaviour
         {
             case SwitchType.MovePlatform:
                 movingPlatform.speed = 0;
+                break;
+            case SwitchType.CreatePlatform:
+                platforms.SetActive(false);
+                break;
+            case SwitchType.RemovePlatform:
+                platforms.SetActive(true);
                 break;
         }
 	}
@@ -55,6 +69,13 @@ public class Switch : MonoBehaviour
             case SwitchType.StopPlatform:
                 movingPlatform.speed = 0;
                 break;
+            case SwitchType.CreatePlatform:
+                platforms.SetActive(true);
+                break;
+            case SwitchType.RemovePlatform:
+                platforms.SetActive(false);
+                break;
+
         }
     }
     void OnTriggerExit2D(Collider2D other) {
@@ -65,6 +86,12 @@ public class Switch : MonoBehaviour
                 break;
             case SwitchType.StopPlatform:
                 movingPlatform.speed = 3;
+                break;
+            case SwitchType.CreatePlatform:
+                platforms.SetActive(false);
+                break;
+            case SwitchType.RemovePlatform:
+                platforms.SetActive(true);
                 break;
         }
     }

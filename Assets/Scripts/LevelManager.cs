@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     private BackGroundController background;
 
     // UIs
+    private GameObject mainCamera;
     private CatChangeManager catChanger;
     private GameOverManager gameOver;
     private PauseManager pauseScreen;
@@ -47,6 +48,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         background = FindObjectOfType<BackGroundController>();
         catDie = GetComponent<AudioSource>();
         PlayerPrefs.SetString("Pause", "false");
+        mainCamera = GameObject.Find("Main Camera");
     }
 
     public void SetUI(CatChangeManager catUI, GameOverManager gameoverUI, PauseManager pauseUI, Text lifeT)
@@ -96,7 +98,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     public IEnumerator gameOverCo()
     {
-        kill();
+        kill();        
         yield return new WaitForSeconds(2);
         gameOver.gameObject.SetActive(true);
     }
@@ -117,7 +119,9 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
             isDead = true;
 
-            player.life -= 1;
+            if(player.life > 0)
+                player.life -= 1;
+
             formerLife = player.life;
             lifeText.text = "X " + player.life;
 
@@ -130,6 +134,8 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
         if(isDead)
         {
             player.life = formerLife;
+
+            ResetCamera();
 
             //background.MoveBackGroundInDeath(lastCamYPos);
 
@@ -173,5 +179,11 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
     {
         Time.timeScale = 1f;
         pauseScreen.gameObject.SetActive(false);
+    }
+
+    private void ResetCamera()
+    {
+        mainCamera.GetComponent<Camera>().orthographicSize = 3;
+        mainCamera.GetComponent<CameraMove>().enabled = true;
     }
 }

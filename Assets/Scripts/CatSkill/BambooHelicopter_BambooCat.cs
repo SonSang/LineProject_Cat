@@ -16,7 +16,7 @@ public class BambooHelicopter_BambooCat : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !IsHovering)
+        if ((Input.GetKeyDown(KeyCode.Z) || PlayerPrefs.GetString("Action") == "true") && !IsHovering)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 400));
             GetComponent<Rigidbody2D>().gravityScale = 0.8f;
