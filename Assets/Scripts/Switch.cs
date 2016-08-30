@@ -9,6 +9,8 @@ public class Switch : MonoBehaviour
     public MovingPlatform movingPlatform;
     public GameObject platforms;
 
+    private AudioSource[] buttonSE;
+
     public AudioSource switchOn;
     public AudioSource switchOff;
 
@@ -23,6 +25,14 @@ public class Switch : MonoBehaviour
 	{
 	    animator = GetComponent<Animator>();
 
+        buttonSE = GetComponents<AudioSource>();
+        for (int i = 0; i < buttonSE.Length; i++)
+        {
+            if (buttonSE[i].clip.name == "Cat_ButtonOn")
+                switchOn = buttonSE[i];
+            if (buttonSE[i].clip.name == "Cat_ButtonOff")
+                switchOff = buttonSE[i];
+        }
 
         // Argument Validation
         switch (switchType)
@@ -64,6 +74,7 @@ public class Switch : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         isOn = true;
+        switchOn.Play();
         switch (switchType)
         {
             case SwitchType.MovePlatform:
@@ -83,6 +94,7 @@ public class Switch : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other) {
         isOn = false;
+        switchOff.Play();
         switch (switchType) {
             case SwitchType.MovePlatform:
                 movingPlatform.speed = 0;
