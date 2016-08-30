@@ -9,9 +9,18 @@ public class BambooHelicopter_BambooCat : MonoBehaviour
     private float StartHoveringTime;
     private float NowTime;
 
+    private AudioSource bambooFly;
+    private AudioSource[] catSE;
+
     void Start()
     {
         IsHovering = false;
+        catSE = GetComponents<AudioSource>();
+        for (int i = 0; i < catSE.Length; i++)
+        {
+            if (catSE[i].clip.name == "Cat_BambooFlying")
+                bambooFly = catSE[i];
+        }
     }
 
     void Update()
@@ -36,6 +45,11 @@ public class BambooHelicopter_BambooCat : MonoBehaviour
 
 			if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")))
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 2);
+            bambooFly.Play();
+        }
+        else
+        {
+            bambooFly.Stop();
         }
     }
 }
