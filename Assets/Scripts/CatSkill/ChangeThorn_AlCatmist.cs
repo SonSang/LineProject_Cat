@@ -41,7 +41,7 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
             for (int i = 0; i < Thorns.Length; i++)
             {
                 Thorns[i].GetComponent<SpriteRenderer>().sprite = Flower;
-                Thorns[i].GetComponent<Collider2D>().enabled = true;
+				Thorns[i].GetComponent<Collider2D>().isTrigger = false;
             }
         }
 
@@ -52,8 +52,19 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
             for (int i = 0; i < Thorns.Length; i++)
             {
                 Thorns[i].GetComponent<SpriteRenderer>().sprite = OriginThorns[i];
-                Thorns[i].GetComponent<Collider2D>().enabled = true;
+				Thorns[i].GetComponent<Collider2D>().isTrigger = true;
             }
         }
     }
+
+	void OnDestroy() 
+	{
+		IsChanged = false;
+
+		for (int i = 0; i < Thorns.Length; i++)
+		{
+			Thorns[i].GetComponent<SpriteRenderer>().sprite = OriginThorns[i];
+			Thorns[i].GetComponent<Collider2D>().isTrigger = true;
+		}
+	}
 }

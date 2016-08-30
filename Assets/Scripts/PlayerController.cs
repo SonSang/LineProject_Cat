@@ -85,6 +85,8 @@ public class PlayerController : MonoBehaviour
 
         if ((PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")) && isGrounded)
         {
+			if (GetComponent<PlayerController> ().name == "BambooCat")
+				return;
             anim.SetBool("Jumping", true);
             catJump.Play();
             jump = true;
