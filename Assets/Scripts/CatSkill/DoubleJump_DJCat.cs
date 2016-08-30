@@ -16,7 +16,7 @@ public class DoubleJump_DJCat : MonoBehaviour
         {
             if (CanDoubleJump && (PlayerPrefs.GetString("Jump") == "Jump" || Input.GetKeyDown("space")))
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 5);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 8);
                 CanDoubleJump = false;
             }
         }
