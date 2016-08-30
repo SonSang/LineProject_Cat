@@ -73,6 +73,14 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
             Pause();
         else
             Resume();
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(!IsPlayerDead && player.isGrounded)
+            {
+                Suicide();
+            }
+        }
     }
 
     public void respawnPlayer(KillPlayer kp)
@@ -87,6 +95,18 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
             StartCoroutine("gameOverCo");
         }
         
+    }
+
+    void Suicide()
+    {
+        if (player.life > 0)
+        {
+            StartCoroutine("respawnPlayerCo");
+        }
+        else
+        {
+            StartCoroutine("gameOverCo");
+        }
     }
 
     public IEnumerator respawnPlayerCo()
