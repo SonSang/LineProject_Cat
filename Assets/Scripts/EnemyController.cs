@@ -69,9 +69,15 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         leftPoint.gameObject.SetActive(false);  
         rightPoint.gameObject.SetActive(false);
 
-        patrolLeftPoint = leftPoint.position;
-        patrolRightPoint = rightPoint.position;
+        patrolLeftPoint = new Vector3(leftPoint.position.x, leftPoint.position.y);
+        patrolRightPoint = new Vector3(rightPoint.position.x, rightPoint.position.y);
 
+        if (patrolLeftPoint.x > patrolRightPoint.x)
+        {
+            var tmp = patrolLeftPoint;
+            patrolLeftPoint = patrolRightPoint;
+            patrolRightPoint = tmp;
+        }
         // Turn off gravity for air units
         if (aiType == EnemyAIType.AirPatrol) {
             rb2d.gravityScale = 0;
