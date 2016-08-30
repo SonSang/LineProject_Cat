@@ -43,6 +43,7 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     private Vector3 lastPosition;
     private bool isAttackCooldown;
     private int stuckCounter;
+    private int waitToStrikeCounter;
 
 
     public void FindPlayer() {
@@ -59,8 +60,9 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         enteringPatrol = true;
 	    isRight = true;
         isAttacking = false;
+        waitToStrikeCounter = 0;
 
-	    groundCheckRadius = 0.1f;
+        groundCheckRadius = 0.1f;
 	    wallCheckRadius = 0.5f;
 
         // Set patrol range with "LeftPoint" "RightPoint"
@@ -69,6 +71,11 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
 
         patrolLeftPoint = leftPoint.position;
         patrolRightPoint = rightPoint.position;
+
+        // Turn off gravity for air units
+        if (aiType == EnemyAIType.AirPatrol) {
+            rb2d.gravityScale = 0;
+        }
     }
     
     void Update() {
@@ -104,7 +111,13 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         }
     }
 
-    void AirPatrol() {
+    void AirPatrol()
+    {
+        if (waitToStrikeCounter > 0) { // Wait a bit
+            waitToStrikeCounter -= 1;
+            return;
+        }
+
         if (levelManager.IsPlayerDead) {
             isAttacking = false;
         }
@@ -124,10 +137,6 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         // Go to the destination with set speed
         Vector2 speedVector = destination - (Vector2)transform.position;
         speedVector = moveSpeed * speedVector.normalized;
-        if (Vector2.Distance(speedVector, new Vector2(0, 0)) < 0.001f)
-        {
-            Debug.Log("HI");
-        }
         rb2d.velocity = speedVector;
 
         float epsilon = 0.01f;
@@ -155,15 +164,15 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         }
 
         // Attack lock on
-        if (!isAttacking && !isAttackCooldown && Vector2.Distance(transform.position, destination) < attackDistance) {
+        if (!isAttacking && !isAttackCooldown && Vector2.Distance(transform.position, player.transform.position) < attackDistance) {
             // Lock on to the current player position
             // The state must be 'Not attacking' since it needs to lock on
             targetPoint = player.transform.position;
             isAttacking = true;
+            waitToStrikeCounter = 100;
         }
 
         lastPosition = transform.position;
-        Debug.Log(transform.position);
     }
 
     bool isPointBetweenPoints(Vector2 p, Vector2 a, Vector2 b)
@@ -279,6 +288,12 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
 
     void SetXSpeed(float xSpeed) {
         rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
+    }
+    void SetYSpeed(float ySpeed) {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, ySpeed);
+    }
+    void SetSpeed(float xSpeed, float ySpeed) {
+        rb2d.velocity = new Vector2(xSpeed, ySpeed);
     }
 
     void Flip()
