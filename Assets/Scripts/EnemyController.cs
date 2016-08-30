@@ -51,6 +51,7 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         moveSpeed = player.moveSpeed * 0.8f;
         enteringPatrol = true;
 	    isRight = true;
+        isAttacking = false;
 
 	    groundCheckRadius = 0.1f;
 	    wallCheckRadius = 0.5f;
@@ -69,20 +70,39 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
             case EnemyAIType.GroundPatrol:
                 GroundPatrol();
                 break;
+            case EnemyAIType.AvoidPlayer:
+                AvoidPlayer();
+                break;
         }
     }
 
+    void AvoidPlayer()
+    {
+        if (Vector2.Distance(transform.position, player.transform.position) < attackDistance)
+        {
+            if (transform.position.x > player.transform.position.x){
+                // Player is at left side
+                SetXSpeed(moveSpeed);
+            }
+            else{ // right side
+                SetXSpeed(-moveSpeed);
+            }
+        }
+        else{
+            SetXSpeed(0);
+        }
+
+    }
+    
     void GroundPatrol()
     {
         if (levelManager.IsPlayerDead || player.name == "BabyCat") {
             isAttacking = false;
         }
-        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > attackDistance)
-        {
+        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > attackDistance){
             isAttacking = false;
         }
-        else
-        {
+        else{
             isAttacking = true;
         }
 
@@ -108,27 +128,28 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         {
             if (!isRight)
                 Flip();
-            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+            SetXSpeed(moveSpeed);
         }
         else if (transform.position.x - player.transform.position.x > attackInertiaDistance) // player is on the left side
         {
             if (isRight)
                 Flip();
-            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+            SetXSpeed(-moveSpeed);
         }
 
         if (!isGroundAhead() || isWallAhead())
-            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+            SetXSpeed(0);
     }
 
     void Patrol()
     {
+        // Patrol for GroundPatrol AI
         anim.SetBool("Attack", false);
 
         if (isRight)
-            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+            SetXSpeed(moveSpeed);
         else
-            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+            SetXSpeed(-moveSpeed);
 
         bool atPatrolEdge;
         if (transform.position.x <= patrolLeftPoint.x && !isRight)
@@ -158,18 +179,22 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         {
             if (isRight)
                 Flip();
-            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+            SetXSpeed(-moveSpeed);
         }
         else if (transform.position.x - patrolLeftPoint.x < -0.5)
         {
             if (!isRight)
                 Flip();
-            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+            SetXSpeed(moveSpeed);
         }
         else
         {
             enteringPatrol = !enteringPatrol;
         }
+    }
+
+    void SetXSpeed(float xSpeed) {
+        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
     }
 
     void Flip()
