@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
     public IEnumerator gameOverCo()
     {
-        kill();
+        kill();        
         yield return new WaitForSeconds(2);
         gameOver.gameObject.SetActive(true);
     }
@@ -117,7 +117,9 @@ public class LevelManager : MonoBehaviour, FindPlayerInterface {
 
             isDead = true;
 
-            player.life -= 1;
+            if(player.life > 0)
+                player.life -= 1;
+
             formerLife = player.life;
             lifeText.text = "X " + player.life;
 
