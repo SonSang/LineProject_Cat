@@ -95,14 +95,21 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
 
     void AvoidPlayer()
     {
-        // AI that avoids player. 
-        if (Vector2.Distance(transform.position, player.transform.position) < attackDistance)
+        // AI that avoids player. (except babycat) 
+        if (player.name != "BabyCat" &&
+            Vector2.Distance(transform.position, player.transform.position) < attackDistance)
         { // If player is close enough
             if (transform.position.x > player.transform.position.x){
                 // Player is at left side
+                if (!isRight) {
+                    Flip();
+                }
                 SetXSpeed(moveSpeed);
             }
-            else{ // right side
+            else { // right side
+                if (isRight) {
+                    Flip();
+                }
                 SetXSpeed(-moveSpeed);
             }
         }
