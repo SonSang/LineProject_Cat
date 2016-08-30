@@ -7,13 +7,12 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     private float moveSpeed;
     public float attackDistance; // Aggro range
     public float attackInertiaDistance; // 
-    
+
+    public Transform leftPoint;
+    public Transform rightPoint;
     public Transform groundCheck; // Point where ai checks for ground
     public Transform wallCheck; // Point where ai checks for wall
-
-    public float groundCheckRadius;
-    public float wallCheckRadius;
-
+    
     /// Note you also need to set the "LeftPoint" and "RightPoint" in the editor.
     private Vector3 patrolLeftPoint; // Edit position of "LeftPoint"
     private Vector3 patrolRightPoint; // Edit position of "RightPoint"
@@ -23,6 +22,9 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     private Rigidbody2D rb2d;
     private Animator anim;
     private PlayerController player;
+
+    private float groundCheckRadius;
+    private float wallCheckRadius;
 
     private bool isRight;
     private bool isAttacking;
@@ -39,12 +41,12 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         enteringPatrol = true;
 	    isRight = true;
 
+	    groundCheckRadius = 0.1f;
+	    wallCheckRadius = 0.5f;
+
         // Set patrol range with "LeftPoint" "RightPoint"
-        Transform leftPoint = transform.FindChild("LeftPoint");
-	    Transform rightPoint = transform.FindChild("RightPoint");
         leftPoint.gameObject.SetActive(false);  
         rightPoint.gameObject.SetActive(false);
-
 
         patrolLeftPoint = leftPoint.position;
         patrolRightPoint = rightPoint.position;
