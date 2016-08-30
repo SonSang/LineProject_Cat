@@ -14,6 +14,8 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
     private float NowTime;
     private bool IsChanged;
 
+    public GameObject BGM;
+
     void Start()
     {
         Thorns = GameObject.FindGameObjectsWithTag("Thorn");
