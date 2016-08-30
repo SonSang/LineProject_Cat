@@ -41,7 +41,7 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
             for (int i = 0; i < Thorns.Length; i++)
             {
                 Thorns[i].GetComponent<SpriteRenderer>().sprite = Flower;
-                Thorns[i].GetComponent<Collider2D>().enabled = false;
+                Thorns[i].GetComponent<Collider2D>().enabled = true;
             }
         }
 
