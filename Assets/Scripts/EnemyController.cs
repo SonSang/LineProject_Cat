@@ -6,13 +6,18 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     // Public variables settable in editor
     private float moveSpeed;
     public float attackDistance; // Aggro range
-    public float attackInertiaDistance; // 
+    public float attackInertiaDistance; // Simulate inertia for more natural moving
 
     public Transform leftPoint;
     public Transform rightPoint;
     public Transform groundCheck; // Point where ai checks for ground
     public Transform wallCheck; // Point where ai checks for wall
-    
+
+    public enum EnemyAIType {
+        GroundPatrol, AirPatrol, AvoidPlayer
+    }
+
+    public EnemyAIType aiType;
     /// Note you also need to set the "LeftPoint" and "RightPoint" in the editor.
     private Vector3 patrolLeftPoint; // Edit position of "LeftPoint"
     private Vector3 patrolRightPoint; // Edit position of "RightPoint"
@@ -30,9 +35,15 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     private bool isAttacking;
 
     private bool enteringPatrol;
+    
 
-	// Use this for initialization
-	void Start () {
+
+    public void FindPlayer() {
+        // Reload player when player respawns since the reference changes.
+        player = FindObjectOfType<PlayerController>();
+    }
+    
+    void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         player = FindObjectOfType<PlayerController>();
@@ -51,15 +62,45 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
         patrolLeftPoint = leftPoint.position;
         patrolRightPoint = rightPoint.position;
     }
-
-    public void FindPlayer()
-    {
-        // Reload player when player respawns since the reference changes.
-        player = FindObjectOfType<PlayerController>();
-    }
     
+    void Update() {
+        switch (aiType)
+        {
+            case EnemyAIType.GroundPatrol:
+                GroundPatrol();
+                break;
+        }
+    }
 
-    void Attack()
+    void GroundPatrol()
+    {
+        if (levelManager.IsPlayerDead || player.name == "BabyCat") {
+            isAttacking = false;
+        }
+        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > attackDistance)
+        {
+            isAttacking = false;
+        }
+        else
+        {
+            isAttacking = true;
+        }
+
+
+        // attack mode
+        if (isAttacking) {
+            enteringPatrol = true;
+            GroundPatrolAttack();
+        }
+        // patrol mode
+        else {
+            if (enteringPatrol) {
+                ReturnToPatrolPoint();
+            }
+            Patrol();
+        }
+    }
+    void GroundPatrolAttack()
     {
         anim.SetBool("Attack", true);
 
@@ -109,37 +150,6 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     bool isWallAhead()
     {
         return Physics2D.OverlapCircle(wallCheck.position, groundCheckRadius, LayerMask.GetMask("Ground"));
-    }
-	// Update is called once per frame
-	void Update () {
-        
-        if (!levelManager.IsPlayerDead)
-        {
-            if (Mathf.Abs(transform.position.x - player.transform.position.x) < attackDistance 
-                && player.name != "BabyCat")
-                isAttacking = true;
-            else
-                isAttacking = false;
-        }
-        else
-            isAttacking = false;
-        
-
-        // attack mode
-        if(isAttacking )
-        {
-            enteringPatrol = true;
-            Attack();
-        }            
-        // patrol mode
-        else
-        {
-            if(enteringPatrol)
-            {
-                ReturnToPatrolPoint();
-            }
-            Patrol();
-        }
     }
 
     void ReturnToPatrolPoint()
