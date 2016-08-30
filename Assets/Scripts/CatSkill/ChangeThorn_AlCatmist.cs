@@ -44,6 +44,7 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
             {
                 Thorns[i].GetComponent<SpriteRenderer>().sprite = Flower;
 				Thorns[i].GetComponent<Collider2D>().isTrigger = false;
+                Thorns[i].gameObject.layer = 8;
             }
         }
 
@@ -55,6 +56,7 @@ public class ChangeThorn_AlCatmist : MonoBehaviour
             {
                 Thorns[i].GetComponent<SpriteRenderer>().sprite = OriginThorns[i];
 				Thorns[i].GetComponent<Collider2D>().isTrigger = true;
+                Thorns[i].gameObject.layer = 11;
             }
         }
     }
