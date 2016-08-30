@@ -244,7 +244,7 @@ public class EnemyController : KillPlayer, FindPlayerInterface {
     void Patrol()
     {
         // Patrol for GroundPatrol AI
-        anim.SetBool("Attack", false);
+        //anim.SetBool("Attack", false);
 
         if (isRight)
             SetXSpeed(moveSpeed);
